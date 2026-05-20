@@ -4,7 +4,7 @@
       fill: none;
       stroke: #07111f;
       stroke-linecap: butt;
-      stroke-width: 130;
+      stroke-width: 112;
     }
 
     .seg {
