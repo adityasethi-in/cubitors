@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cubitors | Full-Stack Apps, AI Solutions & App Development</title>
+  <meta
+    name="description"
+    content="Cubitors builds premium websites, full-stack platforms, mobile apps, AI systems, GenAI support, agentic workflows, RAG platforms, automations, dashboards, and enterprise software."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0d1726;
+      --ink-soft: #31435b;
+      --paper: #f7f1e6;
+      --paper-deep: #eadcc8;
+      --line: rgba(13, 23, 38, 0.1);
+      --mint: #8cecc6;
+      --mint-deep: #18b889;
+      --coral: #ff8b63;
+      --gold: #ffc96f;
+      --blue: #4db9ff;
+      --blue-deep: #173a61;
+      --panel: rgba(255, 250, 241, 0.72);
+      --panel-strong: rgba(255, 250, 241, 0.9);
+      --shadow: 0 20px 60px rgba(10, 18, 31, 0.12);
+      --shadow-tight: 0 12px 32px rgba(10, 18, 31, 0.08);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Outfit", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 12%, rgba(255, 139, 99, 0.22), transparent 34%),
+        radial-gradient(circle at 86% 14%, rgba(77, 185, 255, 0.18), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(140, 236, 198, 0.22), transparent 42%),
+        linear-gradient(180deg, #fffaf2 0%, #f6ecdd 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(13, 23, 38, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13, 23, 38, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(circle at center, black 18%, transparent 82%);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 18px;
+      z-index: 30;
+      padding-top: 18px;
+    }
+
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      background: rgba(255, 250, 241, 0.72);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 999px;
+      box-shadow: var(--shadow-tight);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 58px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: 0.82rem;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.5)),
+        linear-gradient(135deg, var(--mint), var(--gold));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        0 16px 36px rgba(24, 184, 137, 0.16);
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-family: "Syne", sans-serif;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .brand-copy span {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .nav a:hover {
+      color: var(--ink);
+      background: rgba(13, 23, 38, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .pill,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+    }
+
+    .button {
+      padding: 13px 18px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      color: #08202a;
+      background: linear-gradient(135deg, var(--mint), #cbffd5);
+      box-shadow: 0 18px 36px rgba(24, 184, 137, 0.22);
+    }
+
+    .button-ghost {
+      color: var(--ink);
+      border: 1px solid rgba(13, 23, 38, 0.08);
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .hero {
+      position: relative;
+      padding: 64px 0 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero-toolbar {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      width: 100%;
+      margin-bottom: -2px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(13, 23, 38, 0.08);
+      color: var(--ink-soft);
+      font-size: 0.76rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow-tight);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--coral), var(--gold));
+      box-shadow: 0 0 0 5px rgba(255, 139, 99, 0.15);
+    }
+
+    .hero h1 {
+      margin: 20px 0 18px;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(3.3rem, 8vw, 6.1rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      max-width: 12ch;
+    }
+
+    .hero h1 .accent {
+      color: var(--blue-deep);
+      text-shadow: 0 12px 30px rgba(77, 185, 255, 0.16);
+    }
+
+    .hero-copy p.lead {
+      max-width: 640px;
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .hero-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: nowrap;
+      justify-content: flex-end;
+      width: 100%;
+      margin-left: 0;
+      flex-shrink: 0;
+      align-self: flex-end;
+      /* -42px ko -70px kar diya taaki ye aur upar slide ho jaye */
+      transform: translate(40px, -52px); 
+    }
+
+    .hero-notes {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .hero-notes .pill {
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(13, 23, 38, 0.08);
+      box-shadow: var(--shadow-tight);
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+    }
+
+    .hero-stage {
+      position: relative;
+      min-height: 780px; /* Desktop view ke liye breathing space badha di */
+      isolation: isolate;
+    }
+
+    .hero-glow {
+      position: absolute;
+      inset: 10% 10% auto auto;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(77, 185, 255, 0.42), transparent 68%);
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .hero-stage::before,
+    .hero-stage::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero-stage::before {
+      width: 280px;
+      height: 280px;
+      top: 48px;
+      right: 10px;
+      background: radial-gradient(circle, rgba(255, 201, 111, 0.42), transparent 70%);
+      filter: blur(20px);
+    }
+
+    .hero-stage::after {
+      width: 340px;
+      height: 340px;
+      left: 20px;
+      bottom: 26px;
+      background: radial-gradient(circle, rgba(140, 236, 198, 0.36), transparent 72%);
+      filter: blur(22px);
+    }
+
+    .floating-card {
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: var(--panel);
+      backdrop-filter: blur(20px) saturate(170%);
+      box-shadow: var(--shadow);
+      transition: z-index 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .dashboard-card {
+      position: absolute;
+      /* 84px ko ghata kar 30px kar diya. Isse container upar shift ho jayega */
+      inset: 1px 0px auto 0px; 
+      z-index: 2;
+      animation: matrixFloat 8.4s ease-in-out infinite;
+      /* Background gayab, ab ye sirf cards ko hold karega */
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dashboard-top {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 18px 176px 18px 22px;
+      /* Isko pehla glass card bana diya */
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: var(--panel);
+      backdrop-filter: blur(20px) saturate(170%);
+      box-shadow: var(--shadow);
+    }
+    
+    .dashboard-title {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    /* ... title CSS same rahega ... */
+    
+    .status-chip {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      /* ... same ... */
+    }
+    
+    .dashboard-body {
+      display: grid;
+      gap: 16px;
+      padding: 0; /* Padding zero kar di taaki niche ke cards poori width lein */
+    }
+
+    .dashboard-row {
+      display: grid;
+      gap: 16px;
+    }
+
+    .dashboard-row.metrics {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      /* Metrics block ko dusra card bana diya */
+      padding: 14px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: var(--panel);
+      backdrop-filter: blur(20px) saturate(170%);
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.4); /* Inner dabbe ko thoda light kar diya */
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    /* ... dashboard-row.grid waisa hi rahega ... */
+
+    .chart-card,
+    .list-card {
+      padding: 18px;
+      /* Chart aur List ko teesra aur chautha card bana diya */
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: var(--panel);
+      backdrop-filter: blur(20px) saturate(170%);
+      box-shadow: var(--shadow);
+      min-height: 180px;
+    }
+
+    .card-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .curve {
+      position: relative;
+      height: 150px;
+      margin-top: 20px;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(77, 185, 255, 0.08), rgba(77, 185, 255, 0)),
+        linear-gradient(90deg, rgba(13, 23, 38, 0.04) 1px, transparent 1px),
+        linear-gradient(rgba(13, 23, 38, 0.05) 1px, transparent 1px);
+      background-size: auto, 48px 100%, 100% 38px;
+      overflow: hidden;
+    }
+
+    .curve svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .list-card ul {
+      list-style: none;
+      margin: 18px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .list-card li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(13, 23, 38, 0.04);
+    }
+
+    .list-card li strong {
+      display: block;
+      font-size: 0.98rem;
+    }
+
+    .list-card li span {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.84rem;
+      color: var(--ink-soft);
+    }
+
+    .tag {
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(13, 23, 38, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .floating-card {
+      position: absolute;
+      padding: 18px 18px 20px;
+      border-radius: 26px;
+      width: 280px;
+      transform-style: preserve-3d;
+      z-index: 10;
+      overflow: visible;
+    }
+
+    .dashboard-card:hover,
+    .floating-card:hover {
+      z-index: 20;
+      border-color: rgba(24, 184, 137, 0.28);
+      box-shadow: 0 24px 70px rgba(10, 18, 31, 0.2);
+    }
+
+    .floating-card strong {
+      display: block;
+      font-family: "Syne", sans-serif;
+      font-size: 1.04rem;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .floating-card p {
+      margin: 8px 0 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .floating-card .mini {
+      display: inline-flex;
+      padding: 8px 12px;
+      margin-top: 16px;
+      border-radius: 999px;
+      background: rgba(13, 23, 38, 0.06);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card-left {
+      /* -82px se badha kar -40px kar diya. Isse ye right ki taraf shift ho jayega */
+      left: -40px; 
+      top: 262px;
+      width: 188px;
+      animation: drift 6s ease-in-out infinite;
+    }
+
+    .card-right {
+      right: -84px;
+      top: 286px;
+      width: 188px;
+      animation: drift 7.4s ease-in-out infinite;
+      animation-delay: -1.5s;
+    }
+
+    .card-bottom {
+      right: 14px;
+      bottom: -14px;
+      width: 224px;
+      animation: drift 6.8s ease-in-out infinite;
+      animation-delay: -0.8s;
+    }
+
+    .section {
+      padding: 80px 0;
+      scroll-margin-top: 92px;
+    }
+
+    #services {
+      padding-top: 16px;
+    }
+
+    #ai,
+    #apps,
+    #proof,
+    #process,
+    #contact {
+      padding-top: 16px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 26px;
+    }
+
+    .section-heading > div {
+      display: grid;
+      align-content: start;
+      gap: 14px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      max-width: 12ch;
+    }
+
+    .section-heading p {
+      margin: 0;
+      max-width: 520px;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+
+    #services .section-heading,
+    #ai .section-heading,
+    #apps .section-heading,
+    #proof .section-heading,
+    #process .section-heading,
+    #contact .section-heading {
+      margin-top: 8px;
+    }
+
+    .signal-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .signal-card {
+      padding: 20px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(13, 23, 38, 0.08);
+      box-shadow: var(--shadow-tight);
+    }
+
+    .signal-card span {
+      display: block;
+      color: var(--ink-soft);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .signal-card strong {
+      display: block;
+      margin-top: 12px;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      line-height: 1;
+    }
+
+    .services-grid,
+    .proof-grid,
+    .ai-grid,
+    .app-grid,
+    .process-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .service-card {
+      position: relative;
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(13, 23, 38, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.56));
+      box-shadow: var(--shadow-tight);
+      overflow: hidden;
+    }
+
+    .service-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -35% auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(140, 236, 198, 0.22), transparent 72%);
+      pointer-events: none;
+    }
+
+    .service-index {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .service-card h3,
+    .ai-card h3,
+    .proof-card h3,
+    .process-card h3,
+    .app-card h3 {
+      margin: 18px 0 12px;
+      font-family: "Syne", sans-serif;
+      font-size: 1.46rem;
+      line-height: 1.06;
+    }
+
+    .service-card p,
+    .ai-card p,
+    .proof-card p,
+    .process-card p,
+    .app-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .service-tags,
+    .proof-tags,
+    .stack-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .service-tags span,
+    .proof-tags span,
+    .stack-list span {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(13, 23, 38, 0.05);
+      font-size: 0.8rem;
+      color: var(--ink);
+    }
+
+    .ai-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+
+    .ai-card,
+    .proof-card,
+    .app-card,
+    .process-card,
+    .contact-panel {
+      border-radius: 30px;
+      border: 1px solid rgba(13, 23, 38, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.58));
+      box-shadow: var(--shadow-tight);
+    }
+
+    .ai-card {
+      padding: 30px;
+    }
+
+    .ai-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .mini-panel {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(13, 23, 38, 0.04);
+      border: 1px solid rgba(13, 23, 38, 0.06);
+    }
+
+    .mini-panel strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    .mini-panel ul,
+    .proof-card ul,
+    .process-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-panel li,
+    .proof-card li,
+    .process-card li {
+      position: relative;
+      padding-left: 18px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+    }
+
+    .mini-panel li::before,
+    .proof-card li::before,
+    .process-card li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--coral), var(--mint));
+      transform: translateY(-50%);
+    }
+
+    .proof-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .proof-card {
+      padding: 28px;
+    }
+
+    .ai-card .label,
+    .proof-card .label,
+    .app-card .label,
+    .process-card .label,
+    .contact-panel .label {
+      display: inline-flex;
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      border-radius: 999px;
+      background: rgba(13, 23, 38, 0.06);
+      color: var(--ink-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .app-grid {
+      grid-template-columns: 0.88fr 1.12fr;
+      align-items: stretch;
+    }
+
+    .app-showcase {
+      position: relative;
+      border-radius: 34px;
+      overflow: hidden;
+      min-height: 520px;
+      background:
+        radial-gradient(circle at 25% 18%, rgba(255, 201, 111, 0.3), transparent 28%),
+        radial-gradient(circle at 82% 24%, rgba(77, 185, 255, 0.24), transparent 32%),
+        linear-gradient(145deg, #132236 0%, #18324d 50%, #274d74 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .app-showcase::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .phone {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(290px, 76%);
+      padding: 12px;
+      border-radius: 38px;
+      background: linear-gradient(180deg, #0b1522, #09111d);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.38);
+      transform: translate(-50%, -50%);
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      width: 110px;
+      height: 20px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 2;
+    }
+
+    .phone-screen {
+      position: relative;
+      min-height: 540px;
+      padding: 30px 20px 22px;
+      border-radius: 28px;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(circle at 20% 14%, rgba(255, 201, 111, 0.28), transparent 30%),
+        radial-gradient(circle at 78% 22%, rgba(140, 236, 198, 0.22), transparent 26%),
+        linear-gradient(180deg, #13253b 0%, #102032 48%, #0c1623 100%);
+    }
+
+    .phone-pill {
+      display: inline-flex;
+      padding: 7px 11px;
+      margin-bottom: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .phone-screen h3 {
+      margin: 16px 0 0;
+      font-family: "Syne", sans-serif;
+      font-size: 1.5rem;
+      line-height: 1.08;
+    }
+
+    .phone-screen p {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
+    .phone-cards {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .phone-card {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+    }
+
+    .phone-card strong {
+      display: block;
+      font-size: 0.98rem;
+    }
+
+    .phone-card span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.86rem;
+    }
+
+    .app-card {
+      padding: 30px;
+    }
+
+    .app-card + .app-card {
+      margin-top: 18px;
+    }
+
+    .process-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .process-card {
+      padding: 26px;
+    }
+
+    .process-step {
+      font-family: "Syne", sans-serif;
+      font-size: 2.1rem;
+      line-height: 1;
+      color: rgba(23, 58, 97, 0.72);
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+    }
+
+    .contact-panel {
+      padding: 34px;
+    }
+
+    .contact-panel h2 {
+      margin: 18px 0 14px;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      max-width: 10ch;
+    }
+
+    .contact-panel p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 1rem;
+      line-height: 1.75;
+      max-width: 580px;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .contact-item {
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(13, 23, 38, 0.04);
+      border: 1px solid rgba(13, 23, 38, 0.06);
+    }
+
+    .contact-item span {
+      display: block;
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.06rem;
+    }
+
+    .footer {
+      padding: 20px 0 42px;
+    }
+
+    .footer-shell {
+      border-radius: 34px;
+      overflow: hidden;
+      border: 1px solid rgba(13, 23, 38, 0.08);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255, 201, 111, 0.16), transparent 28%),
+        radial-gradient(circle at 84% 18%, rgba(77, 185, 255, 0.14), transparent 30%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.62));
+      box-shadow: var(--shadow-tight);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.1fr 1.15fr 0.85fr;
+      gap: 20px;
+      padding: 28px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .footer-brand-mark {
+      width: 62px;
+      height: 52px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-family: "Syne", sans-serif;
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.52)),
+        linear-gradient(135deg, var(--mint), var(--gold));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        0 16px 30px rgba(24, 184, 137, 0.14);
+    }
+
+    .footer-copy strong {
+      display: block;
+      font-family: "Syne", sans-serif;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .footer-copy p {
+      margin: 12px 0 0;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      font-size: 0.98rem;
+    }
+
+    .footer-column-title {
+      display: inline-flex;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      border-radius: 999px;
+      background: rgba(13, 23, 38, 0.06);
+      color: var(--ink-soft);
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .footer-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .footer-badges span {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 13px;
+      border-radius: 999px;
+      background: rgba(13, 23, 38, 0.05);
+      border: 1px solid rgba(13, 23, 38, 0.06);
+      font-size: 0.84rem;
+      color: var(--ink);
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .footer-link {
+      display: block;
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(13, 23, 38, 0.04);
+      border: 1px solid rgba(13, 23, 38, 0.06);
+    }
+
+    .footer-link span {
+      display: block;
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .footer-link strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 28px 22px;
+      border-top: 1px solid rgba(13, 23, 38, 0.08);
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+    }
+
+    .footer-bottom strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 {
+      transition-delay: 100ms;
+    }
+
+    .delay-2 {
+      transition-delay: 180ms;
+    }
+
+    .delay-3 {
+      transition-delay: 260ms;
+    }
+
+    .delay-4 {
+      transition-delay: 340ms;
+    }
+
+    @keyframes drift {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-14px);
+      }
+    }
+
+    @keyframes matrixFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 70px; /* Header ke liye gap */
+    }
+
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .card-left,
+      .card-right,
+      .card-bottom {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 1140px) {
+      .hero-grid,
+      .ai-grid,
+      .app-grid,
+      .contact-wrap,
+      .section-heading {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        align-items: start;
+      }
+
+      .hero-stage {
+        min-height: 700px;
+      }
+
+      .signal-strip,
+      .services-grid,
+      .proof-grid,
+      .process-grid,
+      .footer-top {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .dashboard-card {
+        inset: 90px 22px 92px 32px;
+      }
+
+      .card-right {
+        right: 16px;
+      }
+
+      .card-bottom {
+        right: 28px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .shell {
+        width: min(var(--max), calc(100% - 24px));
+      }
+
+      .site-header {
+        top: 10px;
+      }
+
+      .header-bar {
+        border-radius: 30px;
+        flex-wrap: wrap;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .header-actions {
+        width: 100%;
+      }
+
+      .header-actions .button {
+        flex: 1;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .hero-toolbar {
+        align-items: flex-start;
+      }
+
+      .hero h1 {
+        max-width: none;
+      }
+
+      .hero-stage {
+        min-height: 760px;
+      }
+
+      .dashboard-card {
+        inset: 126px 12px 140px 12px;
+      }
+
+      .dashboard-row.metrics,
+      .dashboard-row.grid,
+      .signal-strip,
+      .services-grid,
+      .proof-grid,
+      .ai-columns,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-top {
+        min-height: auto;
+        padding-right: 22px;
+      }
+
+      .dashboard-title strong,
+      .dashboard-title span {
+        max-width: none;
+      }
+
+      .status-chip {
+        position: static;
+      }
+
+      .floating-card {
+        width: calc(100% - 28px);
+      }
+
+      .card-left {
+        left: 14px;
+        top: 0;
+      }
+
+      .card-right {
+        right: 14px;
+        top: auto;
+        bottom: 130px;
+      }
+
+      .card-bottom {
+        right: 14px;
+        bottom: 0;
+      }
+
+      .contact-panel {
+        padding: 26px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .brand {
+        width: 100%;
+      }
+
+      .header-actions {
+        flex-direction: column;
+      }
+
+      .hero-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-top-actions {
+        width: 100%;
+        flex-wrap: wrap;
+        margin-left: 0;
+        justify-content: flex-end;
+        align-self: stretch;
+        transform: none;
+      }
+
+      .header-actions .button,
+      .hero-actions .button,
+      .contact-actions .button {
+        width: 100%;
+      }
+
+      .hero-copy p.lead,
+      .section-heading p,
+      .contact-panel p {
+        font-size: 0.98rem;
+      }
+
+      .dashboard-top,
+      .dashboard-body,
+      .service-card,
+      .ai-card,
+      .proof-card,
+      .app-card,
+      .process-card,
+      .contact-panel,
+      .footer-top,
+      .footer-bottom {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .phone {
+        width: 82%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+        scroll-padding-top: 70px;
+      }
+
+      .dashboard-card,
+      .card-left,
+      .card-right,
+      .card-bottom {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 860px) {
+      body {
+        overflow-x: hidden;
+      }
+
+      .site-header {
+        top: 8px;
+        padding-top: 8px;
+      }
+
+      .header-bar {
+        border-radius: 24px;
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .brand-mark {
+        width: 52px;
+        height: 44px;
+      }
+
+      .brand-copy strong {
+        font-size: 0.95rem;
+      }
+
+      .brand-copy span {
+        font-size: 0.66rem;
+        letter-spacing: 0.12em;
+      }
+
+      .nav {
+        width: 100%;
+        flex: 0 0 100%;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+
+      .nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav a {
+        flex: 0 0 auto;
+        padding: 9px 11px;
+        font-size: 0.84rem;
+        white-space: nowrap;
+      }
+
+      .hero {
+        padding-top: 32px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+
+      .hero h1 {
+        max-width: none;
+        font-size: 3rem;
+        line-height: 1;
+      }
+
+      .hero-copy p.lead {
+        max-width: none;
+      }
+
+      .hero-stage {
+        display: grid;
+        gap: 14px;
+        min-height: auto;
+      }
+
+      .hero-stage::before,
+      .hero-stage::after,
+      .hero-glow {
+        display: none;
+      }
+
+      .dashboard-card {
+        position: relative;
+        inset: auto;
+        order: 1;
+        width: 100%;
+        display: grid;
+        gap: 14px;
+        animation: none;
+      }
+
+      .dashboard-top {
+        min-height: auto;
+        padding: 18px;
+      }
+
+      .dashboard-body {
+        gap: 14px;
+      }
+
+      .dashboard-row.metrics,
+      .dashboard-row.grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-row.metrics {
+        padding: 12px;
+      }
+
+      .chart-card,
+      .list-card {
+        min-height: auto;
+      }
+
+      .floating-card {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        border-radius: 22px;
+        transform: none !important;
+        animation: none;
+      }
+
+      .card-left {
+        order: 2;
+      }
+
+      .card-right {
+        order: 3;
+      }
+
+      .card-bottom {
+        order: 4;
+      }
+
+      .app-showcase {
+        min-height: 620px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .shell {
+        width: min(var(--max), calc(100% - 20px));
+      }
+
+      .header-bar {
+        border-radius: 22px;
+      }
+
+      .brand {
+        width: 100%;
+      }
+
+      .nav a {
+        padding: 8px 10px;
+        font-size: 0.78rem;
+      }
+
+      .hero-top-actions {
+        justify-content: flex-start;
+      }
+
+      .hero-top-actions .button,
+      .hero-actions .button,
+      .contact-actions .button {
+        width: 100%;
+      }
+
+      .button {
+        padding: 12px 15px;
+      }
+
+      .hero h1 {
+        font-size: 2.42rem;
+        line-height: 1;
+      }
+
+      .hero-actions {
+        width: 100%;
+      }
+
+      .hero-notes .pill {
+        padding: 9px 12px;
+        font-size: 0.84rem;
+      }
+
+      .section {
+        padding: 58px 0;
+      }
+
+      #services,
+      #ai,
+      #apps,
+      #proof,
+      #process,
+      #contact {
+        padding-top: 12px;
+      }
+
+      .section-heading {
+        gap: 18px;
+        margin-bottom: 20px;
+      }
+
+      .section-heading h2 {
+        max-width: none;
+        font-size: 2rem;
+      }
+
+      .dashboard-top,
+      .dashboard-body,
+      .dashboard-row.metrics,
+      .chart-card,
+      .list-card,
+      .service-card,
+      .ai-card,
+      .proof-card,
+      .app-card,
+      .process-card,
+      .contact-panel,
+      .footer-top,
+      .footer-bottom {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .metric strong {
+        font-size: 1.7rem;
+      }
+
+      .list-card li {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .tag {
+        align-self: flex-start;
+      }
+
+      .phone {
+        width: 88%;
+      }
+
+      .phone-screen {
+        min-height: 500px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell">
+      <div class="header-bar">
+        <a class="brand" href="#top" aria-label="Cubitors">
+          <span class="brand-mark">C</span>
+          <span class="brand-copy">
+            <strong>Cubitors</strong>
+            <span>Apps, AI & Growth Systems</span>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#ai">AI Solutions</a>
+          <a href="#apps">App Development</a>
+          <a href="#proof">What We Build</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-toolbar" data-reveal>
+          <span class="eyebrow">Full-stack apps, elite websites, AI systems</span>
+          <div class="hero-top-actions">
+            <a class="button button-ghost" href="#proof">See Build Types</a>
+            <a class="button button-primary" href="mailto:info@cubitors.com">Start a Project</a>
+          </div>
+        </div>
+
+        <div class="hero-copy" data-reveal>
+          <h1>
+            We build <span class="accent">digital products</span> that look premium and work like infrastructure.
+          </h1>
+          <p class="lead">
+            Cubitors helps brands, schools, operations teams, and founders launch full-stack web apps,
+            high-converting websites, mobile apps, dashboards, AI copilots, agentic AI systems, GenAI support layers,
+            RAG knowledge platforms, and automation engines that actually move business.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#contact">Build With DataCraft</a>
+            <a class="button button-ghost" href="#services">Explore Capabilities</a>
+          </div>
+
+          <div class="hero-notes">
+            <span class="pill">Premium websites</span>
+            <span class="pill">Full-stack platforms</span>
+            <span class="pill">Agentic AI</span>
+            <span class="pill">Mobile apps</span>
+            <span class="pill">RAG + GenAI</span>
+          </div>
+        </div>
+
+        <div class="hero-stage" data-reveal>
+          <div class="hero-glow"></div>
+
+          <article class="floating-card card-left">
+            <strong>Agentic Revenue Engine</strong>
+            <p>AI agents qualifying leads, routing enquiries, preparing quotes, triggering follow-up, and syncing CRM activity.</p>
+            <span class="mini">Sales AI + Workflow Stack</span>
+          </article>
+
+          <article class="dashboard-card" id="hero-dashboard">
+            <div class="dashboard-top">
+              <div class="dashboard-title">
+                <strong>DataCraft Build Matrix</strong>
+                <span>Where product design, backend systems, automation, and AI ship together.</span>
+              </div>
+              <div class="status-chip">Live Delivery Stack</div>
+            </div>
+
+            <div class="dashboard-body">
+              <div class="dashboard-row metrics">
+                <div class="metric">
+                  <span>Systems shipped</span>
+                  <strong data-count="48">48</strong>
+                </div>
+                <div class="metric">
+                  <span>AI workflows</span>
+                  <strong data-count="26">26</strong>
+                </div>
+                <div class="metric">
+                  <span>Platforms unified</span>
+                  <strong data-count="11">11</strong>
+                </div>
+              </div>
+
+              <div class="dashboard-row grid">
+                <div class="chart-card">
+                  <div class="card-label">Growth trajectory</div>
+                  <div class="curve" aria-hidden="true">
+                    <svg viewBox="0 0 520 170" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="curveStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stop-color="#ff8b63"></stop>
+                          <stop offset="50%" stop-color="#4db9ff"></stop>
+                          <stop offset="100%" stop-color="#8cecc6"></stop>
+                        </linearGradient>
+                        <linearGradient id="curveFill" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stop-color="rgba(77,185,255,0.26)"></stop>
+                          <stop offset="100%" stop-color="rgba(77,185,255,0)"></stop>
+                        </linearGradient>
+                      </defs>
+                      <path d="M0 130 C58 128, 82 96, 124 100 S208 144, 252 118 S344 42, 402 48 S482 24, 520 18 L520 170 L0 170 Z" fill="url(#curveFill)"></path>
+                      <path d="M0 130 C58 128, 82 96, 124 100 S208 144, 252 118 S344 42, 402 48 S482 24, 520 18" fill="none" stroke="url(#curveStroke)" stroke-width="6" stroke-linecap="round"></path>
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="list-card">
+                  <div class="card-label">Current build lanes</div>
+                  <ul>
+                    <li>
+                      <div>
+                        <strong>GenAI support desk</strong>
+                        <span>Omnichannel customer support with summaries, suggestions, and escalation logic.</span>
+                      </div>
+                      <span class="tag">GenAI</span>
+                    </li>
+                    <li>
+                      <div>
+                        <strong>RAG knowledge workspace</strong>
+                        <span>Private document search over SOPs, policies, catalogs, and internal knowledge.</span>
+                      </div>
+                      <span class="tag">RAG</span>
+                    </li>
+                    <li>
+                      <div>
+                        <strong>Agentic operations conductor</strong>
+                        <span>Multi-step approvals, reminders, task routing, and owner-level visibility in one place.</span>
+                      </div>
+                      <span class="tag">Agents</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="floating-card card-right">
+            <strong>RAG Knowledge Cloud</strong>
+            <p>Private retrieval systems for teams who need instant answers from documents, databases, policies, and product memory.</p>
+            <span class="mini">Search + Memory + Permissions</span>
+          </article>
+
+          <article class="floating-card card-bottom">
+            <strong>GenAI Support Grid</strong>
+            <p>Support copilots, document intelligence, email drafting, voice agents, and escalation-ready service workflows.</p>
+            <span class="mini">Copilot + Voice + Service AI</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell signal-strip">
+        <div class="signal-card" data-reveal>
+          <span>Speciality</span>
+          <strong>Websites that sell</strong>
+        </div>
+        <div class="signal-card delay-1" data-reveal>
+          <span>Depth</span>
+          <strong>Full-stack systems</strong>
+        </div>
+        <div class="signal-card delay-2" data-reveal>
+          <span>Edge</span>
+          <strong>AI-first workflows</strong>
+        </div>
+        <div class="signal-card delay-3" data-reveal>
+          <span>Scale</span>
+          <strong>Mobile + backend + ops</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="shell">
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="eyebrow">Services</span>
+            <h2>Everything needed to design, build, launch, and grow one serious digital business.</h2>
+          </div>
+          <p>
+            We do not stop at visuals. DataCraft handles product thinking, UI, frontend, backend, databases, APIs,
+            automations, dashboards, admin panels, analytics, cloud deployment, and business-facing polish.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card" data-reveal>
+            <span class="service-index">01 / Premium Website Builds</span>
+            <h3>Marketing websites that feel expensive and convert like sales teams.</h3>
+            <p>
+              Landing pages, company websites, institute sites, service websites, funnels, and brand pages with bold
+              design, strong storytelling, and lead-focused structure.
+            </p>
+            <div class="service-tags">
+              <span>Copy-led UX</span>
+              <span>Responsive design</span>
+              <span>Conversion flows</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="service-index">02 / Full-Stack App Development</span>
+            <h3>Business platforms with auth, roles, backend logic, admin tools, and clean workflows.</h3>
+            <p>
+              School systems, dashboards, ERPs, portals, CRMs, SaaS products, booking systems, attendance tools, and
+              operations platforms that teams use every day.
+            </p>
+            <div class="service-tags">
+              <span>Frontend + backend</span>
+              <span>APIs + database</span>
+              <span>Admin dashboards</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="service-index">03 / AI Solutions</span>
+            <h3>AI built into real work, not bolted on as a gimmick.</h3>
+            <p>
+              We create assistants, copilots, GenAI support layers, OCR pipelines, RAG search, recommendation logic,
+              voice flows, and agentic workflows that reduce manual work and unlock faster decisions.
+            </p>
+            <div class="service-tags">
+              <span>RAG search</span>
+              <span>GenAI support</span>
+              <span>Automation agents</span>
+              <span>Voice AI</span>
+              <span>AI copilots</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="service-index">04 / App Development</span>
+            <h3>Mobile apps that extend your business into every pocket.</h3>
+            <p>
+              Android and iOS-ready experiences for students, staff, customers, field teams, and management with
+              notifications, account access, dashboards, and real-time updates.
+            </p>
+            <div class="service-tags">
+              <span>Android</span>
+              <span>iOS-ready</span>
+              <span>Real-time sync</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="service-index">05 / Biometrics & Integrations</span>
+            <h3>Connect hardware, attendance devices, identity systems, and third-party tools into one flow.</h3>
+            <p>
+              We wire up biometric devices, payment gateways, messaging tools, reporting systems, and cloud services so
+              operations become simpler instead of messier.
+            </p>
+            <div class="service-tags">
+              <span>Biometric devices</span>
+              <span>API integrations</span>
+              <span>Operational sync</span>
+            </div>
+          </article>
+
+          <article class="service-card" data-reveal>
+            <span class="service-index">06 / Analytics & Automation</span>
+            <h3>Dashboards and workflows that give owners control without manual chasing.</h3>
+            <p>
+              KPI dashboards, reporting layers, alerts, reminders, approval chains, lead routing, payments follow-up,
+              and decision-ready visibility across the business.
+            </p>
+            <div class="service-tags">
+              <span>Live reporting</span>
+              <span>Workflow automation</span>
+              <span>Owner dashboards</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ai">
+      <div class="shell">
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="eyebrow">AI Solutions</span>
+            <h2>All the AI layers your business can actually use.</h2>
+          </div>
+          <p>
+            If you want AI in the business, we can shape it into customer support, search, content, document
+            extraction, recommendation, GenAI support, RAG systems, agentic orchestration, and decision support across
+            the full stack.
+          </p>
+        </div>
+
+        <div class="ai-grid">
+          <article class="ai-card" data-reveal>
+            <span class="label">AI product suite</span>
+            <h3>AI systems that plug into websites, apps, internal teams, and operations workflows.</h3>
+            <p>
+              Cubitors can design and implement the experience layer, model workflow, prompts, data logic,
+              admin review, analytics, and security controls so the AI feels usable, safe, and commercially valuable.
+            </p>
+
+            <div class="ai-columns">
+              <div class="mini-panel">
+                <strong>Customer-facing AI</strong>
+                <ul>
+                  <li>Website chat assistants and smart lead qualification.</li>
+                  <li>AI sales support for admissions, services, and bookings.</li>
+                  <li>Content assistance, email generation, GenAI support, and FAQ automation.</li>
+                </ul>
+              </div>
+
+              <div class="mini-panel">
+                <strong>Internal AI</strong>
+                <ul>
+                  <li>OCR for forms, invoices, IDs, and administrative documents.</li>
+                  <li>AI copilots for staff, teachers, owners, support teams, and operations teams.</li>
+                  <li>RAG knowledge search over your business files and workflows.</li>
+                </ul>
+              </div>
+
+              <div class="mini-panel">
+                <strong>Agentic AI</strong>
+                <ul>
+                  <li>Agentic task routing, reminders, escalations, and follow-up chains.</li>
+                  <li>Multi-agent workflows for support, sales ops, and internal execution.</li>
+                  <li>Messaging automations across CRM, forms, dashboards, and service channels.</li>
+                </ul>
+              </div>
+
+              <div class="mini-panel">
+                <strong>Decision AI</strong>
+                <ul>
+                  <li>Trend spotting, anomaly detection, and performance insights.</li>
+                  <li>Scoring systems for leads, risk, attendance, and engagement.</li>
+                  <li>Owner-facing intelligence panels with drill-down visibility and explainable suggestions.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <article class="ai-card" data-reveal>
+            <span class="label">What this includes</span>
+            <h3>From prompt layer to production launch.</h3>
+            <p>
+              We handle the product wrapper around AI so it lands as a real capability rather than a demo.
+            </p>
+            <div class="stack-list">
+              <span>Prompt design</span>
+              <span>Agentic AI flows</span>
+              <span>GenAI support systems</span>
+              <span>Retrieval systems</span>
+              <span>RAG knowledge bases</span>
+              <span>File and document pipelines</span>
+              <span>Approval review layers</span>
+              <span>Chat interfaces</span>
+              <span>Voice agent orchestration</span>
+              <span>Analytics and feedback loops</span>
+              <span>Secure role-based access</span>
+              <span>Backend orchestration</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="apps">
+      <div class="shell">
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="eyebrow">App Development</span>
+            <h2>Web apps and mobile apps designed around how teams really operate.</h2>
+          </div>
+          <p>
+            We build for admins, teachers, staff, founders, customers, and field teams, so the app feels sharp on the
+            surface and dependable in the workflow.
+          </p>
+        </div>
+
+        <div class="app-grid">
+          <div class="app-showcase" data-reveal>
+            <div class="phone">
+              <div class="phone-screen">
+                <span class="phone-pill">Mobile experience</span>
+                <h3>One app. Every key workflow.</h3>
+                <p>Notifications, logins, attendance, profile access, support, approvals, payments, and live updates.</p>
+
+                <div class="phone-cards">
+                  <div class="phone-card">
+                    <strong>Admin & owner view</strong>
+                    <span>KPIs, approvals, reports, and operational alerts in one pocket dashboard.</span>
+                  </div>
+                  <div class="phone-card">
+                    <strong>Staff & field workflow</strong>
+                    <span>Attendance, tasks, submissions, biometric sync, and activity logs.</span>
+                  </div>
+                  <div class="phone-card">
+                    <strong>Customer & student access</strong>
+                    <span>Profiles, schedules, fees, updates, forms, help, and AI support.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <article class="app-card" data-reveal>
+              <span class="label">Web + mobile stack</span>
+              <h3>One backend powering website, dashboard, admin system, and mobile app together.</h3>
+              <p>
+                That means cleaner data, fewer duplicated tools, stronger reporting, easier support, and a more premium
+                customer experience across every screen.
+              </p>
+            </article>
+
+            <article class="app-card" data-reveal>
+              <span class="label">What we can build</span>
+              <h3>Platforms for education, operations, service businesses, and product-led companies.</h3>
+              <p>
+                Student apps, teacher apps, attendance apps, customer portals, service management systems, approval
+                apps, CRM layers, internal tools, and mobile-first experiences that tie back to one central system.
+              </p>
+            </article>
+
+            <article class="app-card" data-reveal>
+              <span class="label">Delivery logic</span>
+              <h3>Designed for launch, maintenance, and growth after the first version.</h3>
+              <p>
+                We think through roles, data models, scale, integrations, performance, and update paths early so the
+                product can keep evolving without turning into a fragile mess.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="proof">
+      <div class="shell">
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="eyebrow">What We Build</span>
+            <h2>Cubitors is built for businesses that need more than a brochure site.</h2>
+          </div>
+          <p>
+            These are the kinds of systems we can shape for you end to end, from the visual layer to the backend logic
+            and the AI layer on top.
+          </p>
+        </div>
+
+        <div class="proof-grid">
+          <article class="proof-card" data-reveal>
+            <span class="label">Agentic operations</span>
+            <h3>AI command centers for service and operations teams</h3>
+            <p>
+              Multi-agent workflows that coordinate tasks, approvals, follow-ups, reminders, escalations, and
+              operational decisions with owner-facing visibility.
+            </p>
+            <div class="proof-tags">
+              <span>Agent routing</span>
+              <span>Approvals</span>
+              <span>Ops visibility</span>
+            </div>
+          </article>
+
+          <article class="proof-card" data-reveal>
+            <span class="label">GenAI support</span>
+            <h3>Support desks that answer faster and escalate smarter</h3>
+            <p>
+              AI-powered support experiences across chat, email, forms, and service queues with summaries, suggested
+              replies, resolution workflows, and manager escalation paths.
+            </p>
+            <div class="proof-tags">
+              <span>Support AI</span>
+              <span>Inbox automation</span>
+              <span>Escalation logic</span>
+            </div>
+          </article>
+
+          <article class="proof-card" data-reveal>
+            <span class="label">RAG platforms</span>
+            <h3>Knowledge systems with private, permission-aware retrieval</h3>
+            <p>
+              Document libraries, internal knowledge hubs, training archives, SOP search, and private company memory
+              layers built for fast answers and better decisions.
+            </p>
+            <div class="proof-tags">
+              <span>Private retrieval</span>
+              <span>Knowledge search</span>
+              <span>Role permissions</span>
+            </div>
+          </article>
+
+          <article class="proof-card" data-reveal>
+            <span class="label">Document intelligence</span>
+            <h3>OCR and file workflows for high-volume admin and operations</h3>
+            <p>
+              Extract, validate, classify, summarize, and route information from forms, invoices, IDs, contracts,
+              support records, and business documents.
+            </p>
+            <div class="proof-tags">
+              <span>OCR pipelines</span>
+              <span>Document AI</span>
+              <span>Workflow triggers</span>
+            </div>
+          </article>
+
+          <article class="proof-card" data-reveal>
+            <span class="label">Revenue automation</span>
+            <h3>Lead-to-conversion systems with AI in the middle</h3>
+            <p>
+              Marketing websites, CRM-connected forms, lead scoring, automated follow-up, quote preparation, and
+              reporting dashboards so revenue activity is visible and actionable.
+            </p>
+            <div class="proof-tags">
+              <span>Lead systems</span>
+              <span>AI follow-up</span>
+              <span>Owner analytics</span>
+            </div>
+          </article>
+
+          <article class="proof-card" data-reveal>
+            <span class="label">Enterprise integrations</span>
+            <h3>Connected platforms for devices, APIs, teams, and business tools</h3>
+            <p>
+              Dashboards that unify biometrics, payments, ERP workflows, messaging systems, admin controls, reporting,
+              and cross-platform automation without making the stack feel fragmented.
+            </p>
+            <div class="proof-tags">
+              <span>Biometric sync</span>
+              <span>API integration</span>
+              <span>Unified dashboards</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="shell">
+        <div class="section-heading" data-reveal>
+          <div>
+            <span class="eyebrow">Process</span>
+            <h2>We design like a studio and build like an operations partner.</h2>
+          </div>
+          <p>
+            The point is not just to ship something beautiful. The point is to ship something that feels premium, fits
+            the workflow, and keeps performing after launch.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card" data-reveal>
+            <div class="process-step">01</div>
+            <h3>Business mapping</h3>
+            <p>We define the real workflows, users, pain points, system logic, and conversion goals before design starts.</p>
+          </article>
+
+          <article class="process-card" data-reveal>
+            <div class="process-step">02</div>
+            <h3>Design direction</h3>
+            <p>We shape a sharp interface, clearer messaging, stronger hierarchy, and a visual identity that feels custom.</p>
+          </article>
+
+          <article class="process-card" data-reveal>
+            <div class="process-step">03</div>
+            <h3>Engineering stack</h3>
+            <p>Frontend, backend, APIs, database, AI workflows, dashboards, device hooks, and admin logic come together.</p>
+          </article>
+
+          <article class="process-card" data-reveal>
+            <div class="process-step">04</div>
+            <h3>Launch and evolve</h3>
+            <p>We refine, deploy, support, and extend the product with better reports, better flows, and new capabilities.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="shell contact-wrap">
+        <article class="contact-panel" data-reveal>
+          <span class="label">Ready to build</span>
+          <h2>Bring us the website, app, AI idea, or full-stack system you want to launch next.</h2>
+          <p>
+            If you want a serious digital presence with strong UI, clean engineering, AI capability, automation, and
+            growth-ready structure, Cubitors can help you build it from strategy to production.
+          </p>
+
+          <div class="contact-actions">
+            <a class="button button-primary" href="mailto:info@cubitors.com">info@cubitors.com</a>
+            <a class="button button-ghost" href="https://www.cubitors.com/" target="_blank" rel="noreferrer">Current Website</a>
+          </div>
+        </article>
+
+        <article class="contact-panel" data-reveal>
+          <span class="label">Contact</span>
+          <div class="contact-list">
+            <div class="contact-item">
+              <span>Call us</span>
+              <strong>+91-7838279394</strong>
+              <strong>+91-8810521800</strong>
+            </div>
+            <div class="contact-item">
+              <span>Core offering</span>
+              <strong>Full-stack websites, web apps, mobile apps, AI solutions, agentic AI, GenAI support, RAG systems, and automation platforms</strong>
+            </div>
+            <div class="contact-item">
+              <span>Best fit</span>
+              <strong>Schools, institutes, service businesses, product teams, and operations-heavy companies</strong>
+            </div>
+            <div class="contact-item">
+              <span>Delivery style</span>
+              <strong>Design-led execution with product thinking, backend depth, and business-first implementation</strong>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-shell">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-brand-mark">C</div>
+          <div class="footer-copy">
+            <strong>Cubitors</strong>
+            <p>
+              Premium websites, full-stack apps, AI systems, agentic workflows, GenAI support, RAG platforms, and
+              integrated business software.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <span class="footer-column-title">Capabilities</span>
+          <div class="footer-badges">
+            <span>Premium Websites</span>
+            <span>Full-Stack Apps</span>
+            <span>Agentic AI</span>
+            <span>GenAI Support</span>
+            <span>RAG Platforms</span>
+            <span>Mobile Apps</span>
+          </div>
+        </div>
+
+        <div>
+          <span class="footer-column-title">Connect</span>
+          <div class="footer-links">
+            <a class="footer-link" href="mailto:info@cubitors.com">
+              <span>Email</span>
+              <strong>info@cubitors.com</strong>
+            </a>
+            <div class="footer-link">
+              <span>Call</span>
+              <strong>+91-7838279394</strong>
+              <strong>+91-8810521800</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span><strong>Cubitors</strong> designs and builds digital systems that are beautiful, scalable, and commercially useful.</span>
+        <span>&copy; <span id="year"></span> Cubitors. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const revealItems = document.querySelectorAll("[data-reveal]");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    } else {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18 });
+
+      revealItems.forEach((item) => revealObserver.observe(item));
+    }
+
+    const countTargets = document.querySelectorAll("[data-count]");
+    const countObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        const target = entry.target;
+        const finalValue = Number(target.dataset.count || target.textContent);
+        const duration = 1200;
+        const start = performance.now();
+
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          target.textContent = Math.round(finalValue * eased);
+
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          }
+        };
+
+        requestAnimationFrame(tick);
+        observer.unobserve(target);
+      });
+    }, { threshold: 0.6 });
+
+    countTargets.forEach((target) => countObserver.observe(target));
+
+    const heroStage = document.querySelector(".hero-stage");
+    if (heroStage && !prefersReducedMotion) {
+      const floatingCards = document.querySelectorAll(".floating-card");
+
+      heroStage.addEventListener("mousemove", (event) => {
+        const bounds = heroStage.getBoundingClientRect();
+        const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 8;
+        const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 8;
+
+        floatingCards.forEach((card, index) => {
+          const depth = (index + 1) * 0.45;
+          card.style.transform =
+            "translate3d(" + (x * depth) + "px," + (y * depth) + "px,0)";
+        });
+      }, { passive: true });
+
+      heroStage.addEventListener("mouseleave", () => {
+        floatingCards.forEach((card) => {
+          card.style.transform = "translate3d(0,0,0)";
+        });
+      });
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
