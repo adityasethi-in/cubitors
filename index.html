@@ -336,7 +336,7 @@
 
     .hero-stage {
       position: relative;
-      min-height: 780px; /* Desktop view ke liye breathing space badha di */
+      min-height: 700px;
       isolation: isolate;
     }
 
@@ -387,11 +387,9 @@
 
     .dashboard-card {
       position: absolute;
-      /* 84px ko ghata kar 30px kar diya. Isse container upar shift ho jayega */
-      inset: 1px 0px auto 0px; 
+      inset: 22px 16px auto 24px; 
       z-index: 2;
       animation: matrixFloat 8.4s ease-in-out infinite;
-      /* Background gayab, ab ye sirf cards ko hold karega */
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -405,7 +403,6 @@
       flex-wrap: wrap;
       gap: 12px;
       padding: 18px 176px 18px 22px;
-      /* Isko pehla glass card bana diya */
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.72);
       background: var(--panel);
@@ -430,7 +427,7 @@
     .dashboard-body {
       display: grid;
       gap: 16px;
-      padding: 0; /* Padding zero kar di taaki niche ke cards poori width lein */
+      padding: 0;
     }
 
     .dashboard-row {
@@ -440,7 +437,6 @@
 
     .dashboard-row.metrics {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      /* Metrics block ko dusra card bana diya */
       padding: 14px;
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.72);
@@ -452,16 +448,13 @@
     .metric {
       padding: 14px;
       border-radius: 18px;
-      background: rgba(255, 254, 247, 0.68); /* Inner dabbe ko thoda light kar diya */
+      background: rgba(255, 254, 247, 0.68);
       border: 1px solid rgba(255, 255, 255, 0.68);
     }
-
-    /* ... dashboard-row.grid waisa hi rahega ... */
 
     .chart-card,
     .list-card {
       padding: 18px;
-      /* Chart aur List ko teesra aur chautha card bana diya */
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.72);
       background: var(--panel);
@@ -583,27 +576,27 @@
     }
 
     .card-left {
-      /* -82px se badha kar -40px kar diya. Isse ye right ki taraf shift ho jayega */
-      left: -40px; 
-      top: 262px;
-      width: 188px;
+      left: -18px; 
+      top: 270px;
+      width: 180px;
       animation: drift 6s ease-in-out infinite;
     }
 
     .card-right {
-      right: -84px;
-      top: 286px;
-      width: 188px;
+      right: -30px;
+      top: 310px;
+      width: 180px;
       animation: drift 7.4s ease-in-out infinite;
       animation-delay: -1.5s;
     }
 
     .card-bottom {
-      right: 14px;
-      bottom: -14px;
+      right: 42px;
+      bottom: 8px;
       width: 224px;
       animation: drift 6.8s ease-in-out infinite;
       animation-delay: -0.8s;
+      opacity: 0.92;
     }
 
     .section {
@@ -1107,14 +1100,24 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       gap: 14px;
       min-height: 100%;
       padding: 10px 0;
     }
 
+    .footer-brand::after {
+      content: "Digital systems with product taste and backend depth.";
+      max-width: 260px;
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
     .footer-logo {
       display: block;
-      width: min(280px, 70vw);
+      width: min(250px, 70vw);
       height: auto;
     }
 
@@ -1518,6 +1521,16 @@
         padding: 12px;
       }
 
+      .brand {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .brand-logo {
+        height: 58px;
+        max-width: 210px;
+      }
+
       .brand-mark {
         width: 52px;
         height: 44px;
@@ -1535,12 +1548,11 @@
       .nav {
         width: 100%;
         flex: 0 0 100%;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        gap: 6px;
-        overflow-x: auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+        overflow: visible;
         padding-bottom: 2px;
-        scrollbar-width: none;
       }
 
       .nav::-webkit-scrollbar {
@@ -1548,10 +1560,12 @@
       }
 
       .nav a {
-        flex: 0 0 auto;
-        padding: 9px 11px;
-        font-size: 0.84rem;
+        padding: 9px 8px;
+        font-size: 0.78rem;
         white-space: nowrap;
+        text-align: center;
+        background: rgba(255, 254, 247, 0.66);
+        border: 1px solid rgba(7, 17, 31, 0.055);
       }
 
       .hero {
@@ -1639,6 +1653,14 @@
         order: 4;
       }
 
+      .footer-brand {
+        align-items: flex-start;
+      }
+
+      .footer-brand::after {
+        text-align: left;
+      }
+
       .app-showcase {
         min-height: 620px;
       }
@@ -1662,13 +1684,9 @@
         border-radius: 22px;
       }
 
-      .brand {
-        width: 100%;
-      }
-
       .nav a {
-        padding: 8px 10px;
-        font-size: 0.78rem;
+        padding: 8px 6px;
+        font-size: 0.72rem;
       }
 
       .hero-top-actions {
@@ -1773,8 +1791,8 @@
         <nav class="nav" aria-label="Primary">
           <a href="#services">Services</a>
           <a href="#ai">AI Solutions</a>
-          <a href="#apps">App Development</a>
-          <a href="#proof">What We Build</a>
+          <a href="#apps">Apps</a>
+          <a href="#proof">Build Types</a>
           <a href="#process">Process</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -1799,9 +1817,8 @@
             We build <span class="accent">digital products</span> that look premium and work like infrastructure.
           </h1>
           <p class="lead">
-            Cubitors helps brands, schools, operations teams, and founders launch full-stack web apps,
-            high-converting websites, mobile apps, dashboards, AI copilots, agentic AI systems, GenAI support layers,
-            RAG knowledge platforms, and automation engines that actually move business.
+            Cubitors helps brands, schools, operations teams, and founders launch premium websites,
+            full-stack apps, AI copilots, RAG platforms, and automation systems that actually move business.
           </p>
 
           <div class="hero-actions">
@@ -1859,7 +1876,7 @@
                     <svg viewBox="0 0 520 170" preserveAspectRatio="none">
                       <defs>
                         <linearGradient id="curveStroke" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stop-color="#ff8b63"></stop>
+                          <stop offset="0%" stop-color="#ffc96f"></stop>
                           <stop offset="50%" stop-color="#4db9ff"></stop>
                           <stop offset="100%" stop-color="#8cecc6"></stop>
                         </linearGradient>
