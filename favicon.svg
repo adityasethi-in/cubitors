@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Cubitors favicon">
+  <style>
+    .outline {
+      fill: none;
+      stroke: #07111f;
+      stroke-linecap: butt;
+      stroke-width: 130;
+    }
+
+    .seg {
+      fill: none;
+      stroke-linecap: butt;
+      stroke-width: 104;
+    }
+
+    .blue {
+      stroke: #4db9ff;
+    }
+
+    .navy {
+      stroke: #0d1726;
+    }
+
+    .green {
+      stroke: #18b889;
+    }
+
+    .gold {
+      stroke: #ffc96f;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .outline {
+        stroke: #ffffff;
+      }
+    }
+  </style>
+  <path class="outline" d="M 285.2 90.6 A 168 168 0 0 1 393.6 159.6"/>
+  <path class="outline" d="M 198.5 98.1 A 168 168 0 0 1 285.2 90.6"/>
+  <path class="outline" d="M 103.7 327.0 A 168 168 0 0 1 198.5 98.1"/>
+  <path class="outline" d="M 299.5 418.3 A 168 168 0 0 1 103.7 327.0"/>
+  <path class="outline" d="M 393.6 352.4 A 168 168 0 0 1 299.5 418.3"/>
+  <path class="seg blue" d="M 285.2 90.6 A 168 168 0 0 1 393.6 159.6"/>
+  <path class="seg navy" d="M 198.5 98.1 A 168 168 0 0 1 285.2 90.6"/>
+  <path class="seg green" d="M 103.7 327.0 A 168 168 0 0 1 198.5 98.1"/>
+  <path class="seg navy" d="M 299.5 418.3 A 168 168 0 0 1 103.7 327.0"/>
+  <path class="seg gold" d="M 393.6 352.4 A 168 168 0 0 1 299.5 418.3"/>
+</svg>
