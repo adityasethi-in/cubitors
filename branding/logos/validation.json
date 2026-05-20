@@ -1,0 +1,42 @@
+[
+  {
+    "file": "C:\\Users\\adity\\Cubitors\\branding\\logos\\cubitors-logo-01.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "transparent_corners": true
+  },
+  {
+    "file": "C:\\Users\\adity\\Cubitors\\branding\\logos\\cubitors-logo-02.png",
+    "size": [
+      2048,
+      2048
+    ],
+    "transparent_corners": true
+  },
+  {
+    "file": "C:\\Users\\adity\\Cubitors\\branding\\logos\\cubitors-logo-03.png",
+    "size": [
+      2048,
+      2048
+    ],
+    "transparent_corners": true
+  },
+  {
+    "file": "C:\\Users\\adity\\Cubitors\\branding\\logos\\cubitors-logo-04.png",
+    "size": [
+      3072,
+      2048
+    ],
+    "transparent_corners": true
+  },
+  {
+    "file": "C:\\Users\\adity\\Cubitors\\branding\\logos\\cubitors-logo-05.png",
+    "size": [
+      3072,
+      2048
+    ],
+    "transparent_corners": true
+  }
+]
