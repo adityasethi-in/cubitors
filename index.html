@@ -172,9 +172,9 @@
 
     .site-header {
       position: sticky;
-      top: 18px;
+      top: 0;
       z-index: 30;
-      padding-top: 18px;
+      padding-top: 10px;
     }
 
     .header-bar {
@@ -306,7 +306,7 @@
 
     .hero {
       position: relative;
-      padding: 64px 0 32px;
+      padding: 34px 0 32px;
     }
 
     .hero-grid {
@@ -319,11 +319,12 @@
     .hero-toolbar {
       grid-column: 1 / -1;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
       width: 100%;
-      margin-bottom: -2px;
+      margin-bottom: 10px;
     }
 
     .eyebrow {
@@ -388,14 +389,13 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       justify-content: flex-end;
-      width: 100%;
-      margin-left: 0;
+      width: auto;
+      margin-left: auto;
       flex-shrink: 0;
-      align-self: flex-end;
-      /* -42px ko -70px kar diya taaki ye aur upar slide ho jaye */
-      transform: translate(40px, -52px); 
+      align-self: center;
+      transform: none;
     }
 
     .hero-notes {
@@ -1398,7 +1398,8 @@
       }
 
       .site-header {
-        top: 10px;
+        top: 0;
+        padding-top: 8px;
       }
 
       .header-bar {
@@ -1419,11 +1420,17 @@
       }
 
       .hero {
-        padding-top: 38px;
+        padding-top: 28px;
       }
 
       .hero-toolbar {
         align-items: flex-start;
+        margin-bottom: 0;
+      }
+
+      .hero-top-actions {
+        width: 100%;
+        justify-content: flex-start;
       }
 
       .hero h1 {
@@ -1570,8 +1577,8 @@
       }
 
       .site-header {
-        top: 8px;
-        padding-top: 8px;
+        top: 0;
+        padding-top: 6px;
       }
 
       .header-bar {
@@ -1628,7 +1635,7 @@
       }
 
       .hero {
-        padding-top: 32px;
+        padding-top: 24px;
       }
 
       .signal-section {
