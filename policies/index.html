@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policies | Cubitors</title>
+  <meta
+    name="description"
+    content="Cubitors policies for privacy, terms, SaaS and AI services, acceptable use, data processing, cookies, billing, refunds, security, and client deliverables."
+  >
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Cubitors">
+  <meta name="theme-color" content="#07111f">
+  <link rel="canonical" href="https://cubitors.com/policies/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cubitors.com/policies/">
+  <meta property="og:title" content="Policies | Cubitors">
+  <meta property="og:description" content="Privacy, terms, SaaS, AI, data processing, security, billing, refunds, and acceptable use policies for Cubitors.">
+  <meta property="og:image" content="https://cubitors.com/branding/logos/cubitors-logo-04.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #07111f;
+      --ink-soft: #344253;
+      --muted: #667381;
+      --line: rgba(7, 17, 31, 0.12);
+      --panel: #ffffff;
+      --page: #f7faf9;
+      --green: #18b889;
+      --blue: #4db9ff;
+      --gold: #ffc96f;
+      --shadow: 0 24px 70px rgba(7, 17, 31, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(24, 184, 137, 0.08), transparent 34%),
+        linear-gradient(225deg, rgba(77, 185, 255, 0.10), transparent 38%),
+        var(--page);
+      font-family: "Outfit", Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(247, 250, 249, 0.86);
+      border-bottom: 1px solid rgba(7, 17, 31, 0.08);
+    }
+
+    .topbar-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .brand img {
+      width: 148px;
+      display: block;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .nav a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.56);
+      border: 1px solid rgba(7, 17, 31, 0.08);
+    }
+
+    .hero {
+      padding: 72px 0 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--ink-soft);
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(7, 17, 31, 0.08);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Syne", "Outfit", Arial, sans-serif;
+      letter-spacing: -0.045em;
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      max-width: 920px;
+      font-size: clamp(2.8rem, 8vw, 6.1rem);
+      line-height: 0.93;
+    }
+
+    .lead {
+      max-width: 850px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.75;
+    }
+
+    .notice {
+      margin-top: 24px;
+      padding: 18px 20px;
+      border: 1px solid rgba(255, 201, 111, 0.7);
+      border-radius: 18px;
+      background: rgba(255, 248, 225, 0.78);
+      color: #59420f;
+      line-height: 1.6;
+      max-width: 960px;
+    }
+
+    .policy-layout {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      padding: 18px 0 72px;
+    }
+
+    .toc {
+      position: sticky;
+      top: 98px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(7, 17, 31, 0.08);
+      box-shadow: 0 16px 42px rgba(7, 17, 31, 0.08);
+    }
+
+    .toc strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .toc a {
+      display: block;
+      padding: 9px 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--ink-soft);
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    .toc a:hover {
+      background: rgba(7, 17, 31, 0.05);
+    }
+
+    .policy-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .policy-card {
+      border-radius: 24px;
+      border: 1px solid rgba(7, 17, 31, 0.08);
+      background:
+        linear-gradient(90deg, rgba(24, 184, 137, 0.48), rgba(77, 185, 255, 0.48) 62%, rgba(255, 201, 111, 0.48)) top / 100% 3px no-repeat,
+        rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .policy-card h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      line-height: 1;
+    }
+
+    .policy-card h3 {
+      margin: 24px 0 8px;
+      font-size: 1.18rem;
+      letter-spacing: -0.02em;
+    }
+
+    .policy-card p,
+    .policy-card li {
+      color: var(--ink-soft);
+      line-height: 1.72;
+    }
+
+    .policy-card p {
+      margin: 0 0 14px;
+    }
+
+    .policy-card ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .mini {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(7, 17, 31, 0.08);
+      background: rgba(248, 250, 252, 0.86);
+    }
+
+    .mini strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .updated {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .updated span {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(7, 17, 31, 0.05);
+      border: 1px solid rgba(7, 17, 31, 0.06);
+    }
+
+    .footer {
+      padding: 28px 0 46px;
+    }
+
+    .footer-shell {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(7, 17, 31, 0.08);
+      color: var(--muted);
+    }
+
+    .footer-shell a {
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    @media (max-width: 900px) {
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .policy-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 28px, 1160px);
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .policy-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/">
+        <img src="/branding/logos/cubitors-logo-04.png" alt="Cubitors">
+      </a>
+      <nav class="nav" aria-label="Policy sections">
+        <a href="/">Home</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#ai">AI Policy</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <span class="eyebrow">Cubitors policies</span>
+        <h1>Policies for software, SaaS, AI systems, apps, websites, and digital services.</h1>
+        <p class="lead">
+          This page explains how Cubitors handles privacy, project delivery, SaaS and AI usage, payments,
+          refunds, data security, cookies, intellectual property, acceptable use, and client responsibilities.
+        </p>
+        <div class="notice">
+          These policies are intended to provide clear business terms for Cubitors clients and users. They are
+          not a substitute for independent legal advice. If a signed proposal, statement of work, DPA, NDA, or
+          service agreement conflicts with this page, the signed document controls for that engagement.
+        </div>
+        <div class="updated">
+          <span>Last updated: 19 June 2026</span>
+          <span>Contact: info@cubitors.com</span>
+          <span>GSTIN: 07ALZPS0040G1ZV</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell policy-layout">
+      <aside class="toc">
+        <strong>On this page</strong>
+        <a href="#overview">Overview</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#billing">Billing, Cancellations, Refunds</a>
+        <a href="#ai">AI and Automation Policy</a>
+        <a href="#acceptable-use">Acceptable Use</a>
+        <a href="#data-processing">Data Processing</a>
+        <a href="#security">Security</a>
+        <a href="#cookies">Cookies</a>
+        <a href="#ip">Intellectual Property</a>
+        <a href="#contact">Contact</a>
+      </aside>
+
+      <div class="policy-stack">
+        <article class="policy-card" id="overview">
+          <h2>Overview and Scope</h2>
+          <p>
+            Cubitors provides digital product strategy, design, website development, full-stack software
+            development, SaaS systems, mobile apps, AI assistants, RAG platforms, automation workflows,
+            dashboards, integrations, maintenance, and related consulting services.
+          </p>
+          <p>
+            These policies apply to visitors of cubitors.com, prospective clients, active clients, users of
+            Cubitors-built systems where Cubitors controls the service, and business contacts who communicate
+            with Cubitors. Additional client-specific contracts may include more detailed service, privacy,
+            security, uptime, or data processing terms.
+          </p>
+          <div class="grid">
+            <div class="mini">
+              <strong>Business identity</strong>
+              Cubitors, Digital Product Studio. Email: info@cubitors.com. Phone: +91 78382 79394, +91 88105 21800.
+            </div>
+            <div class="mini">
+              <strong>Primary services</strong>
+              Websites, web apps, mobile apps, AI solutions, GenAI support, RAG systems, automations, integrations, dashboards, and software consulting.
+            </div>
+          </div>
+        </article>
+
+        <article class="policy-card" id="privacy">
+          <h2>Privacy Policy</h2>
+          <p>
+            Cubitors collects and processes information only where it is needed to respond to enquiries,
+            deliver services, operate websites or applications, maintain security, comply with law, or improve
+            our business and client experience.
+          </p>
+
+          <h3>Information we may collect</h3>
+          <ul>
+            <li>Contact details such as name, company, email address, phone number, role, and location.</li>
+            <li>Project and business information shared through calls, forms, messages, documents, files, or proposals.</li>
+            <li>Billing information such as invoice details, GST details, payment status, and transaction references.</li>
+            <li>Technical information such as IP address, browser, device, pages viewed, logs, analytics events, and security signals.</li>
+            <li>Account and usage information for SaaS products, dashboards, admin panels, apps, or systems operated by Cubitors.</li>
+            <li>AI inputs, prompts, documents, knowledge-base content, outputs, feedback, and workflow metadata where an AI feature is used.</li>
+            <li>Support communications, bug reports, recordings, screenshots, diagnostics, and service history.</li>
+          </ul>
+
+          <h3>How we use information</h3>
+          <ul>
+            <li>To respond to enquiries, prepare proposals, provide quotes, onboard clients, and communicate about services.</li>
+            <li>To design, build, test, deploy, support, and maintain websites, apps, SaaS systems, AI workflows, and integrations.</li>
+            <li>To provide authentication, access controls, dashboards, analytics, reporting, notifications, and support.</li>
+            <li>To invoice, collect payments, calculate taxes, maintain accounting records, and prevent fraud or misuse.</li>
+            <li>To monitor reliability, debug errors, protect systems, investigate abuse, and enforce policies.</li>
+            <li>To improve service quality, product workflows, user experience, and internal delivery processes.</li>
+            <li>To comply with legal, tax, contractual, security, and regulatory obligations.</li>
+          </ul>
+
+          <h3>Legal basis and consent</h3>
+          <p>
+            Depending on the context, Cubitors may process information based on contract performance, consent,
+            legitimate business interests, compliance with legal obligations, protection of systems, or a client
+            instruction where Cubitors acts as a service provider or processor.
+          </p>
+
+          <h3>Sharing and third parties</h3>
+          <p>
+            Cubitors may use trusted service providers for hosting, cloud infrastructure, analytics, email,
+            communication, payment processing, databases, AI model providers, version control, monitoring,
+            storage, and support tools. We do not sell personal information. Data may be shared where required
+            to deliver services, comply with law, protect rights, or complete a business transaction.
+          </p>
+
+          <h3>Retention and deletion</h3>
+          <p>
+            We keep information for as long as needed for the purpose collected, active client work, support,
+            accounting, legal obligations, security, backups, and legitimate business records. Clients may
+            request deletion or export where legally and technically possible. Some information may remain in
+            backups, audit logs, invoices, or legal records for a limited period.
+          </p>
+
+          <h3>Your rights</h3>
+          <p>
+            Depending on applicable law, you may request access, correction, deletion, export, restriction, or
+            objection to processing of your personal information. To exercise these rights, email info@cubitors.com.
+          </p>
+        </article>
+
+        <article class="policy-card" id="terms">
+          <h2>Terms of Service</h2>
+          <p>
+            By using Cubitors websites, engaging Cubitors for services, or accessing Cubitors-built systems,
+            you agree to use them lawfully, responsibly, and in accordance with applicable proposals, invoices,
+            statements of work, contracts, and these policies.
+          </p>
+
+          <h3>Proposals, scope, and deliverables</h3>
+          <ul>
+            <li>Project scope, timelines, pricing, milestones, deliverables, support, and assumptions are defined in the relevant proposal, invoice, statement of work, or written confirmation.</li>
+            <li>Changes outside the agreed scope may require additional fees, timeline changes, or a revised proposal.</li>
+            <li>Client delays in content, approvals, credentials, testing, feedback, or payments may affect delivery timelines.</li>
+            <li>Demo, staging, and production delivery may differ based on hosting, third-party limitations, client data, and final approvals.</li>
+          </ul>
+
+          <h3>Client responsibilities</h3>
+          <ul>
+            <li>Provide accurate requirements, content, brand assets, data, account access, credentials, and approvals.</li>
+            <li>Ensure you have rights to any content, images, data, trademarks, documents, or materials supplied to Cubitors.</li>
+            <li>Review deliverables, test workflows, and notify Cubitors of issues within agreed review windows.</li>
+            <li>Use software, SaaS systems, AI tools, and integrations only for lawful and authorized purposes.</li>
+            <li>Maintain confidentiality of passwords, admin accounts, API keys, payment credentials, and private data.</li>
+          </ul>
+
+          <h3>Service availability</h3>
+          <p>
+            Cubitors aims to build reliable systems, but no website, SaaS product, AI workflow, integration,
+            hosting provider, device API, or third-party service can be guaranteed to be uninterrupted or
+            error-free unless a specific signed SLA states otherwise.
+          </p>
+
+          <h3>Third-party services</h3>
+          <p>
+            Projects may rely on hosting providers, app stores, payment gateways, analytics, CRMs, AI model
+            providers, messaging platforms, biometric devices, APIs, open-source packages, and other third-party
+            tools. Their pricing, availability, review processes, policies, outages, and limitations are outside
+            Cubitors' control.
+          </p>
+        </article>
+
+        <article class="policy-card" id="billing">
+          <h2>Billing, Cancellations, and Refund Policy</h2>
+          <h3>Payments and taxes</h3>
+          <ul>
+            <li>Fees, milestones, recurring subscriptions, support retainers, and taxes are stated in the relevant invoice or proposal.</li>
+            <li>GST, government fees, payment gateway charges, app store fees, hosting, domains, SMS, email, AI usage, cloud, and third-party charges may be billed separately unless included in writing.</li>
+            <li>Work may be paused for overdue invoices, missing approvals, non-payment, or account access issues.</li>
+          </ul>
+
+          <h3>Cancellations</h3>
+          <p>
+            A client may request cancellation in writing. Fees already paid for completed work, reserved time,
+            discovery, strategy, design, development, setup, third-party purchases, or partially completed
+            milestones may be non-refundable. Any cancellation settlement will depend on the signed agreement,
+            work completed, costs incurred, and outstanding dues.
+          </p>
+
+          <h3>Refunds</h3>
+          <p>
+            Custom software, design, AI, automation, SaaS setup, and consulting work is generally not refundable
+            once work has started, because it involves reserved time and client-specific deliverables. If a
+            refund is approved in writing, it may be adjusted for completed work, transaction fees, taxes,
+            third-party costs, discounts, and administrative expenses.
+          </p>
+
+          <h3>Recurring services</h3>
+          <p>
+            Maintenance, SaaS subscriptions, hosting management, support retainers, monitoring, and AI usage
+            plans may renew monthly, quarterly, or annually as agreed. Cancellation may stop future renewals
+            but does not automatically refund the current billing period unless agreed in writing.
+          </p>
+        </article>
+
+        <article class="policy-card" id="ai">
+          <h2>AI, Automation, and RAG Policy</h2>
+          <p>
+            Cubitors may design and deploy AI assistants, copilots, retrieval systems, content workflows,
+            document processing, voice or chat flows, lead qualification, recommendation systems, and automation
+            agents. AI systems can be powerful, but they require responsible use and human oversight.
+          </p>
+
+          <h3>AI outputs and accuracy</h3>
+          <ul>
+            <li>AI outputs may be incomplete, inaccurate, biased, outdated, or unsuitable for a particular purpose.</li>
+            <li>Clients and users must review AI-generated outputs before relying on them for business, legal, medical, financial, safety, employment, education, or other high-impact decisions.</li>
+            <li>AI tools should not be treated as a replacement for professional advice, human judgment, or required compliance review.</li>
+          </ul>
+
+          <h3>AI inputs and data</h3>
+          <ul>
+            <li>Do not submit data that you are not authorized to use, process, upload, or share.</li>
+            <li>Do not submit sensitive personal data, confidential information, regulated data, or trade secrets unless the project scope and security controls explicitly allow it.</li>
+            <li>For RAG or knowledge-base systems, the client is responsible for the accuracy, rights, permissions, and legal use of uploaded documents and data.</li>
+          </ul>
+
+          <h3>Responsible AI use</h3>
+          <p>
+            Cubitors may apply safeguards such as role-based access, prompt controls, logging, content filters,
+            human review, rate limits, escalation flows, and audit trails. Clients must not use AI systems to
+            mislead people, impersonate others, generate unlawful content, make prohibited decisions, bypass
+            consent, scrape protected data, or violate third-party rights.
+          </p>
+
+          <h3>Model providers and data handling</h3>
+          <p>
+            AI features may use third-party model providers, vector databases, speech services, OCR providers,
+            cloud services, or analytics tools. Data handling depends on the selected architecture and provider
+            terms. For sensitive deployments, Cubitors can discuss private infrastructure, data minimization,
+            retention controls, logging choices, and provider-specific settings.
+          </p>
+        </article>
+
+        <article class="policy-card" id="acceptable-use">
+          <h2>Acceptable Use Policy</h2>
+          <p>You may not use Cubitors websites, services, software, SaaS systems, AI tools, or deliverables to:</p>
+          <ul>
+            <li>Break the law, violate regulations, infringe intellectual property, or breach contractual obligations.</li>
+            <li>Upload malware, exploit vulnerabilities, attack networks, spam users, or abuse APIs.</li>
+            <li>Collect, process, or expose personal data without proper rights, notice, consent, or legal basis.</li>
+            <li>Generate or distribute harmful, deceptive, hateful, abusive, explicit, fraudulent, or unlawful content.</li>
+            <li>Impersonate people, misrepresent affiliation, manipulate users, or hide material facts.</li>
+            <li>Use AI or automation for prohibited surveillance, discrimination, unauthorized profiling, or high-impact decisions without appropriate safeguards.</li>
+            <li>Reverse engineer, resell, overload, scrape, or misuse systems except where expressly permitted.</li>
+          </ul>
+          <p>
+            Cubitors may suspend access, pause work, refuse deployment, remove content, or terminate services if
+            misuse, security risk, legal risk, or policy violation is identified.
+          </p>
+        </article>
+
+        <article class="policy-card" id="data-processing">
+          <h2>Data Processing and Client Data</h2>
+          <p>
+            For many custom projects, the client decides what data is collected and why. In those cases, the
+            client is generally the controller or business owner of the data, and Cubitors acts as a service
+            provider or processor under client instructions.
+          </p>
+          <h3>Processor commitments</h3>
+          <ul>
+            <li>Process client data only for agreed service delivery, support, security, legal compliance, or written instructions.</li>
+            <li>Use reasonable confidentiality and security controls for client data.</li>
+            <li>Limit access to people and service providers who need it for the project.</li>
+            <li>Assist with reasonable export, deletion, or correction requests where technically possible and within scope.</li>
+            <li>Notify the client of known data incidents where required and reasonably possible.</li>
+          </ul>
+          <h3>Client commitments</h3>
+          <ul>
+            <li>Provide lawful instructions and obtain required notices, consents, and rights for data processing.</li>
+            <li>Avoid sending unnecessary sensitive data unless agreed safeguards are in place.</li>
+            <li>Maintain user-facing privacy notices for systems operated under the client's brand.</li>
+            <li>Review access permissions, user roles, retention settings, and exported reports.</li>
+          </ul>
+        </article>
+
+        <article class="policy-card" id="security">
+          <h2>Security Policy</h2>
+          <p>
+            Cubitors applies reasonable technical and organizational measures based on the project type, budget,
+            infrastructure, sensitivity, and agreed scope. Security is a shared responsibility between Cubitors,
+            clients, hosting providers, third-party tools, and end users.
+          </p>
+          <h3>Common controls</h3>
+          <ul>
+            <li>Role-based access and least-privilege account access where applicable.</li>
+            <li>HTTPS, secure hosting practices, environment separation, and protected credentials.</li>
+            <li>Database, API, and admin panel controls appropriate to the project.</li>
+            <li>Backups, logging, monitoring, updates, and incident review where included in scope.</li>
+            <li>Secure handling of API keys, secrets, payment credentials, and deployment access.</li>
+          </ul>
+          <h3>Limitations</h3>
+          <p>
+            No security program can guarantee complete protection. Security also depends on client password
+            practices, admin access, hosting configuration, third-party systems, user behavior, plugin updates,
+            device security, and ongoing maintenance.
+          </p>
+        </article>
+
+        <article class="policy-card" id="cookies">
+          <h2>Cookie and Analytics Policy</h2>
+          <p>
+            Cubitors websites and digital products may use cookies, local storage, pixels, analytics scripts, or
+            similar technologies to keep services working, remember preferences, understand site performance,
+            protect against abuse, and improve marketing or user experience.
+          </p>
+          <ul>
+            <li>Essential cookies may be required for login, security, forms, sessions, and service operation.</li>
+            <li>Analytics cookies may help understand traffic, pages viewed, device type, errors, and conversion activity.</li>
+            <li>Marketing or third-party cookies may be used only where configured for a specific website or campaign.</li>
+          </ul>
+          <p>
+            You can control cookies through your browser settings. Disabling cookies may affect site features,
+            login sessions, preferences, analytics accuracy, or product functionality.
+          </p>
+        </article>
+
+        <article class="policy-card" id="ip">
+          <h2>Intellectual Property and Deliverables</h2>
+          <h3>Client materials</h3>
+          <p>
+            Clients retain rights to content, trademarks, data, documents, logos, brand assets, and materials
+            they provide, and confirm they have permission for Cubitors to use them for the project.
+          </p>
+          <h3>Cubitors materials</h3>
+          <p>
+            Cubitors retains rights to pre-existing tools, internal frameworks, templates, know-how, generic
+            components, reusable code, processes, prompts, automation patterns, documentation formats, and
+            non-client-specific materials unless transferred in writing.
+          </p>
+          <h3>Custom deliverables</h3>
+          <p>
+            Ownership or license of custom deliverables depends on the signed proposal or agreement. Unless
+            otherwise agreed, transfer of final project files or production access may depend on full payment of
+            all dues. Third-party software, fonts, plugins, open-source packages, stock assets, and APIs remain
+            subject to their own licenses.
+          </p>
+          <h3>Portfolio rights</h3>
+          <p>
+            Unless restricted by NDA or written agreement, Cubitors may mention completed work in portfolios,
+            proposals, case studies, social posts, or sales material, while avoiding confidential details.
+          </p>
+        </article>
+
+        <article class="policy-card" id="liability">
+          <h2>Disclaimers and Limitation of Liability</h2>
+          <p>
+            Cubitors provides services and deliverables with professional care, but does not guarantee specific
+            revenue, rankings, app store approvals, AI accuracy, regulatory outcomes, uninterrupted uptime, lead
+            volume, conversion rates, or compatibility with every future third-party change unless expressly
+            agreed in writing.
+          </p>
+          <p>
+            To the maximum extent permitted by law, Cubitors will not be liable for indirect, incidental,
+            consequential, special, punitive, loss-of-profit, loss-of-data, business interruption, third-party,
+            or platform-related damages. Any liability cap will be governed by the applicable signed agreement;
+            if no signed agreement states otherwise, liability is limited to fees paid for the specific service
+            giving rise to the claim.
+          </p>
+        </article>
+
+        <article class="policy-card" id="law">
+          <h2>Governing Law and Changes</h2>
+          <p>
+            Unless a signed contract states otherwise, these policies are governed by the laws of India, and
+            disputes will be handled through good-faith discussion first. If formal proceedings are required,
+            the jurisdiction will be the competent courts in Delhi, India, where applicable.
+          </p>
+          <p>
+            Cubitors may update these policies from time to time to reflect new services, laws, technologies,
+            security practices, or business requirements. The latest version will be posted on this page with
+            the updated date.
+          </p>
+        </article>
+
+        <article class="policy-card" id="contact">
+          <h2>Contact Cubitors</h2>
+          <p>
+            For privacy requests, policy questions, data deletion, security concerns, billing issues, or service
+            terms, contact Cubitors at:
+          </p>
+          <ul>
+            <li>Email: <a href="mailto:info@cubitors.com">info@cubitors.com</a></li>
+            <li>Phone: <a href="tel:+917838279394">+91 78382 79394</a>, <a href="tel:+918810521800">+91 88105 21800</a></li>
+            <li>Website: <a href="https://cubitors.com/">https://cubitors.com/</a></li>
+            <li>GSTIN: 07ALZPS0040G1ZV</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-shell">
+      <span><strong>Cubitors</strong> policies for software, SaaS, AI, data, and digital services.</span>
+      <span><a href="/">Home</a> / <a href="mailto:info@cubitors.com">info@cubitors.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
