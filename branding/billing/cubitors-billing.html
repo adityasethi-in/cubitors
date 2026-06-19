@@ -1,0 +1,1885 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cubitors Billing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="assets/html2canvas.min.js?v=20260605-5"></script>
+  <script src="assets/jspdf.umd.min.js?v=20260605-5"></script>
+  
+  <style>
+    :root {
+      --ink: #07111f;
+      --panel: #ffffff;
+      --page: #f5f7fa;
+      --muted: #667381;
+      --line: #dce3ea;
+      --green: #22c7a9;
+      --blue: #4db9ff;
+      --gold: #ffc96f;
+      --danger: #c44545;
+      --soft: #f8fafc;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--ink);
+      background: var(--page);
+      font-family: "Outfit", Arial, sans-serif;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(360px, 440px) 1fr;
+    }
+
+    .editor {
+      height: 100vh;
+      overflow: auto;
+      background: var(--panel);
+      border-right: 1px solid var(--line);
+    }
+
+    .editor-header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 20px;
+    }
+
+    .brand-lockup {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .brand-lockup img {
+      width: 92px;
+      display: block;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .brand-subtitle {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .icon-button, .primary-button, .ghost-button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .icon-button svg, .primary-button svg, .ghost-button svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.2;
+    }
+
+    .primary-button {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    .app-toast {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 50;
+      max-width: min(360px, calc(100vw - 36px));
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      box-shadow: 0 14px 34px rgba(7, 17, 31, 0.22);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 160ms ease, transform 160ms ease;
+      pointer-events: none;
+    }
+
+    .app-toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .app-toast.is-error {
+      background: #8a2f2f;
+      border-color: #8a2f2f;
+    }
+
+    .editor-body {
+      padding: 18px 20px 32px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .section {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 42px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-content {
+      padding: 12px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .field {
+      display: grid;
+      gap: 5px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .field input, .field select, .field textarea {
+      width: 100%;
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 8px 10px;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 74px;
+      resize: vertical;
+      line-height: 1.35;
+    }
+
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(34, 199, 169, 0.14);
+    }
+
+    .item-card {
+      display: grid;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .item-row {
+      display: grid;
+      grid-template-columns: 1fr 70px 96px 36px;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .remove-item {
+      min-width: 36px;
+      width: 36px;
+      height: 36px;
+      border: 1px solid #f0c7c7;
+      border-radius: 6px;
+      color: var(--danger);
+      background: #fff;
+      display: grid;
+      place-items: center;
+    }
+
+    .remove-item svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .summary-chip {
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--soft);
+    }
+
+    .summary-chip span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .summary-chip strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 15px;
+    }
+
+    .preview-wrap {
+      height: 100vh;
+      overflow: auto;
+      padding: 28px;
+      display: grid;
+      justify-items: center;
+      align-content: start;
+    }
+
+    .invoice-page {
+      position: relative;
+      width: 210mm;
+      min-height: 297mm;
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+      background: #fff;
+      box-shadow: 0 22px 60px rgba(7, 17, 31, 0.16);
+      color: var(--ink);
+    }
+
+    .top-banner {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+      top: 0;
+    }
+
+    .banner-ink {
+      width: 100%;
+      height: 12mm;
+      background: var(--ink);
+    }
+
+    .banner-green {
+      position: absolute;
+      top: 12mm;
+      right: 0;
+      width: 75%;
+      height: 4.5mm;
+      background: var(--green);
+      clip-path: polygon(7mm 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .banner-blue {
+      position: absolute;
+      top: 12mm;
+      right: 0;
+      width: 45%;
+      height: 4.5mm;
+      background: var(--blue);
+      clip-path: polygon(7mm 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .banner-yellow {
+      position: absolute;
+      top: 16.5mm;
+      right: 15%;
+      width: 25%;
+      height: 3.5mm;
+      background: var(--gold);
+      clip-path: polygon(5mm 0, 100% 0, calc(100% - 5mm) 100%, 0 100%);
+    }
+
+    .bottom-banner {
+      position: relative;
+      left: 0;
+      width: 100%;
+      height: 6mm;
+      z-index: 2;
+      flex: 0 0 6mm;
+    }
+
+    .bb-ink, .bb-green, .bb-blue, .bb-yellow {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+    }
+
+    .bb-ink {
+      width: 100%;
+      background: var(--ink);
+    }
+
+    .bb-green {
+      width: 55%;
+      background: var(--green);
+      clip-path: polygon(0 0, calc(100% - 6mm) 0, 100% 100%, 0 100%);
+    }
+
+    .bb-blue {
+      width: 35%;
+      background: var(--blue);
+      clip-path: polygon(0 0, calc(100% - 6mm) 0, 100% 100%, 0 100%);
+    }
+
+    .bb-yellow {
+      width: 15%;
+      background: var(--gold);
+      clip-path: polygon(0 0, calc(100% - 6mm) 0, 100% 100%, 0 100%);
+    }
+
+    .invoice-inner {
+      position: relative;
+      z-index: 3;
+      padding: 22mm 18mm 6mm;
+    }
+
+    .invoice-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14mm;
+      align-items: start;
+    }
+
+    .invoice-logo {
+      width: 54mm;
+      display: block;
+    }
+
+    .invoice-title-block {
+      text-align: right;
+    }
+
+    .invoice-title {
+      margin: 0;
+      font-family: "Syne", "Outfit", Arial, sans-serif;
+      font-size: 11.5mm;
+      line-height: 0.95;
+      font-weight: 800;
+      letter-spacing: -0.045em;
+    }
+
+    .invoice-status {
+      display: inline-flex;
+      margin-top: 2.2mm;
+      padding: 1.2mm 2.6mm;
+      border-radius: 999px;
+      background: rgba(34, 199, 169, 0.12);
+      color: #0b8d79;
+      font-size: 2.45mm;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .invoice-meta {
+      margin-top: 7mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7mm;
+      padding-top: 4.5mm;
+      border-top: 1px solid var(--line);
+    }
+
+    .business-info, .client-info {
+      display: grid;
+      gap: 1.2mm;
+      font-size: 2.95mm;
+      line-height: 1.35;
+    }
+
+    .block-label {
+      color: var(--muted);
+      font-size: 2.5mm;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .business-info strong, .client-info strong {
+      font-size: 3.8mm;
+    }
+
+    .invoice-facts {
+      margin-top: 6mm;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .fact {
+      padding: 2.4mm 2.8mm;
+      min-height: 13.5mm;
+      border-right: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .fact:last-child {
+      border-right: 0;
+    }
+
+    .fact span {
+      display: block;
+      color: var(--muted);
+      font-size: 2.4mm;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .fact strong {
+      display: block;
+      margin-top: 1.4mm;
+      font-size: 3.3mm;
+    }
+
+    .line-items {
+      width: 100%;
+      margin-top: 6.5mm;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .line-items thead {
+      display: table-header-group;
+    }
+
+    .line-items tr {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .line-items th {
+      padding: 2.4mm 2.5mm;
+      color: #fff;
+      background: var(--ink);
+      font-size: 2.6mm;
+      letter-spacing: 0.1em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .line-items th:nth-child(2),
+    .line-items th:nth-child(3),
+    .line-items th:nth-child(4) {
+      text-align: right;
+    }
+
+    .line-items td {
+      padding: 2.8mm 2.5mm;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      font-size: 3.1mm;
+      line-height: 1.35;
+    }
+
+    .line-items td:nth-child(2),
+    .line-items td:nth-child(3),
+    .line-items td:nth-child(4) {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .service-name {
+      display: block;
+      font-weight: 800;
+    }
+
+    .service-desc {
+      display: block;
+      margin-top: 1mm;
+      color: var(--muted);
+      font-size: 2.8mm;
+    }
+
+    .totals-grid {
+      margin-top: 6mm;
+      display: grid;
+      grid-template-columns: 1fr 70mm;
+      gap: 10mm;
+      align-items: start;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .notes-box {
+      color: var(--muted);
+      font-size: 3mm;
+      line-height: 1.45;
+    }
+
+    .notes-box strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 1.5mm;
+    }
+
+    .notes-payment {
+      margin-top: 5mm;
+    }
+
+    .totals {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .total-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6mm;
+      padding: 2.5mm 3.5mm;
+      border-bottom: 1px solid var(--line);
+      font-size: 3.1mm;
+    }
+
+    .total-row:last-child {
+      border-bottom: 0;
+    }
+
+    .grand-total {
+      color: #fff;
+      background: var(--ink);
+      font-size: 4.1mm;
+      font-weight: 800;
+    }
+
+    .payment-grid {
+      margin-top: 6mm;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6mm;
+      font-size: 3mm;
+      line-height: 1.45;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .payment-box {
+      padding: 3.2mm 4mm;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .payment-content {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 5mm;
+      align-items: start;
+    }
+
+    .payment-lines {
+      display: grid;
+      gap: 1mm;
+    }
+
+    .qr-code {
+      width: 26mm;
+      height: 26mm;
+      object-fit: contain;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 1.5mm;
+      background: #fff;
+    }
+
+    .qr-code[hidden] {
+      display: none;
+    }
+
+    .payment-box strong {
+      display: block;
+      margin-bottom: 2mm;
+    }
+    
+    .invoice-declaration {
+      margin: auto 18mm 0;
+      text-align: center;
+      font-size: 2.8mm;
+      color: var(--muted);
+      padding-bottom: 4mm;
+    }
+
+    .invoice-footer {
+      position: relative;
+      margin: 0 18mm 5mm;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      gap: 8mm;
+      padding-top: 3mm;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 2.8mm;
+      line-height: 1.45;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .invoice-footer strong {
+      color: var(--ink);
+    }
+
+    @media (max-width: 1100px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+      .editor {
+        height: auto;
+        max-height: none;
+      }
+      .preview-wrap {
+        height: auto;
+        padding: 18px 10px;
+      }
+      .invoice-page {
+        transform: scale(0.72);
+        transform-origin: top center;
+        margin-bottom: -78mm;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .editor {
+        display: none;
+      }
+      .app-shell, .preview-wrap {
+        display: block;
+        height: auto;
+        padding: 0;
+      }
+      .invoice-page {
+        width: 210mm;
+        min-height: 297mm;
+        overflow: visible;
+        box-shadow: none;
+        transform: none;
+      }
+      .line-items thead {
+        display: table-header-group;
+      }
+      .line-items tr, .totals-grid, .payment-grid, .invoice-footer {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="editor" aria-label="Billing editor">
+      <header class="editor-header">
+        <div class="brand-lockup">
+          <img src="../logos/cubitors-logo-04.png" alt="Cubitors">
+          <div>
+            <h1 class="brand-title">Billing Studio</h1>
+            <p class="brand-subtitle">Software invoices</p>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="primary-button" id="printBtn" title="Download complete PDF"><i data-lucide="download"></i>PDF</button>
+          <button class="icon-button" id="saveBtn" title="Save draft in this browser"><i data-lucide="save"></i>Save</button>
+          <button class="icon-button" id="loadBtn" title="Load saved draft"><i data-lucide="folder-open"></i>Load</button>
+          <button class="icon-button" id="resetBtn" title="Reset invoice"><i data-lucide="rotate-ccw"></i>Reset</button>
+        </div>
+      </header>
+
+      <div class="editor-body">
+        <section class="section">
+          <div class="section-title">Invoice</div>
+          <div class="section-content">
+            <div class="grid-2">
+              <div class="field">
+                <label for="invoiceNo">Invoice No.</label>
+                <input id="invoiceNo" data-field="invoiceNo">
+              </div>
+              <div class="field">
+                <label for="status">Status</label>
+                <select id="status" data-field="status">
+                  <option>Unpaid</option>
+                  <option>Paid</option>
+                  <option>Part Paid</option>
+                  <option>Draft</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="invoiceDate">Invoice Date</label>
+                <input id="invoiceDate" type="date" data-field="invoiceDate">
+              </div>
+              <div class="field">
+                <label for="dueDate">Due Date</label>
+                <input id="dueDate" type="date" data-field="dueDate">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="gstMode">GST Mode</label>
+                <select id="gstMode" data-field="gstMode">
+                  <option value="split">CGST + SGST</option>
+                  <option value="igst">IGST</option>
+                  <option value="none">No GST</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="gstRate">GST %</label>
+                <input id="gstRate" type="number" min="0" step="0.01" data-field="gstRate">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">Client</div>
+          <div class="section-content">
+            <div class="field">
+              <label for="clientName">Client / Company</label>
+              <input id="clientName" data-field="clientName">
+            </div>
+            <div class="field">
+              <label for="clientAddress">Billing Address</label>
+              <textarea id="clientAddress" data-field="clientAddress"></textarea>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="clientGstin">Client GSTIN</label>
+                <input id="clientGstin" data-field="clientGstin">
+              </div>
+              <div class="field">
+                <label for="placeSupply">Place of Supply</label>
+                <input id="placeSupply" data-field="placeSupply">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">
+            Services
+            <button class="ghost-button" id="addItemBtn"><i data-lucide="plus"></i>Add</button>
+          </div>
+          <div class="section-content" id="itemsEditor"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">Adjustments</div>
+          <div class="section-content">
+            <div class="grid-2">
+              <div class="field">
+                <label for="discount">Discount</label>
+                <input id="discount" type="number" min="0" step="0.01" data-field="discount">
+              </div>
+              <div class="field">
+                <label for="advance">Advance Paid</label>
+                <input id="advance" type="number" min="0" step="0.01" data-field="advance">
+              </div>
+            </div>
+            <div class="summary-strip">
+              <div class="summary-chip"><span>Subtotal</span><strong id="chipSubtotal"></strong></div>
+              <div class="summary-chip"><span>Tax</span><strong id="chipTax"></strong></div>
+              <div class="summary-chip"><span>Due</span><strong id="chipDue"></strong></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">Payment & Notes</div>
+          <div class="section-content">
+            <div class="grid-2">
+              <div class="field">
+                <label for="accountHolder">Account Holder</label>
+                <input id="accountHolder" data-field="accountHolder">
+              </div>
+              <div class="field">
+                <label for="bankName">Bank Name</label>
+                <input id="bankName" data-field="bankName">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="accountNumber">Account Number</label>
+                <input id="accountNumber" data-field="accountNumber">
+              </div>
+              <div class="field">
+                <label for="ifscCode">IFSC</label>
+                <input id="ifscCode" data-field="ifscCode">
+              </div>
+            </div>
+            <div class="field">
+              <label for="upiId">UPI ID</label>
+              <input id="upiId" data-field="upiId">
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="qrUpload">QR Code</label>
+                <input id="qrUpload" type="file" accept="image/*">
+              </div>
+              <div class="field">
+                <label>&nbsp;</label>
+                <button class="ghost-button" id="clearQrBtn" type="button"><i data-lucide="x"></i>Clear QR</button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="paymentDetails">Extra Payment Details</label>
+              <textarea id="paymentDetails" data-field="paymentDetails"></textarea>
+            </div>
+            <div class="field">
+              <label for="notes">Notes / Terms</label>
+              <textarea id="notes" data-field="notes"></textarea>
+            </div>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <section class="preview-wrap" aria-label="Invoice preview">
+      <article class="invoice-page" id="invoicePage">
+        <div class="top-banner">
+          <div class="banner-ink"></div>
+          <div class="banner-green"></div>
+          <div class="banner-blue"></div>
+          <div class="banner-yellow"></div>
+        </div>
+
+        <div class="invoice-inner">
+          <header class="invoice-header">
+            <div>
+              <img class="invoice-logo" src="../logos/cubitors-logo-04.png" alt="Cubitors">
+            </div>
+            <div class="invoice-title-block">
+              <h2 class="invoice-title">Invoice</h2>
+              <span class="invoice-status" id="previewStatus"></span>
+            </div>
+          </header>
+
+          <section class="invoice-meta">
+            <div class="business-info">
+              <span class="block-label">From</span>
+              <strong>Cubitors</strong>
+              <span>Digital Product Studio</span>
+              <span>Email: info@cubitors.com</span>
+              <span>Web: www.cubitors.com</span>
+              <span>Phone: +91 78382 79394, +91 88105 21800</span>
+              <span>GSTIN: 07ALZPS0040G1ZV</span>
+            </div>
+            <div class="client-info">
+              <span class="block-label">Bill To</span>
+              <strong id="previewClientName"></strong>
+              <span id="previewClientAddress"></span>
+              <span id="previewClientGstin"></span>
+              <span id="previewPlaceSupply"></span>
+            </div>
+          </section>
+
+          <section class="invoice-facts">
+            <div class="fact"><span>Invoice No.</span><strong id="previewInvoiceNo"></strong></div>
+            <div class="fact"><span>Invoice Date</span><strong id="previewInvoiceDate"></strong></div>
+            <div class="fact"><span>Due Date</span><strong id="previewDueDate"></strong></div>
+            <div class="fact"><span>GST</span><strong id="previewGstMode"></strong></div>
+          </section>
+
+          <table class="line-items">
+            <thead>
+              <tr>
+                <th style="width: 52%">Service</th>
+                <th style="width: 12%">Qty</th>
+                <th style="width: 18%">Rate</th>
+                <th style="width: 18%">Amount</th>
+              </tr>
+            </thead>
+            <tbody id="previewItems"></tbody>
+          </table>
+
+          <section class="totals-grid">
+            <div class="notes-box">
+              <strong>Notes</strong>
+              <span id="previewNotes"></span>
+              <div class="notes-payment">
+                <strong>Payment Details</strong>
+                <div class="payment-content">
+                  <span class="payment-lines" id="previewPayment"></span>
+                  <img class="qr-code" id="previewQr" alt="Payment QR" hidden>
+                </div>
+              </div>
+            </div>
+            <div class="totals" id="previewTotals"></div>
+          </section>
+        </div>
+
+        <div class="invoice-declaration">
+          This is a computer generated invoice for software and digital services.
+        </div>
+
+        <footer class="invoice-footer">
+          <div>
+            <strong>Cubitors</strong><br>
+            Email: info@cubitors.com | Web: www.cubitors.com<br>
+            Phone: +91 78382 79394, +91 88105 21800
+          </div>
+          <div style="text-align:right">
+            <strong>GSTIN: 07ALZPS0040G1ZV</strong><br>
+            Build. Launch. Automate.
+          </div>
+        </footer>
+
+        <div class="bottom-banner">
+          <div class="bb-ink"></div>
+          <div class="bb-green"></div>
+          <div class="bb-blue"></div>
+          <div class="bb-yellow"></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const services = [
+      { name: "Custom Software Development", desc: "Planning, development, testing, and deployment of custom software modules.", rate: 50000 },
+      { name: "Mobile App Development", desc: "Android/iOS mobile app design, development, backend integration, and release support.", rate: 75000 },
+      { name: "Web App Development", desc: "Responsive full-stack web application with admin panel, APIs, and deployment.", rate: 65000 },
+      { name: "SaaS Product Development", desc: "SaaS architecture, subscription flows, dashboard, tenant logic, and production setup.", rate: 95000 },
+      { name: "AI & Automation", desc: "Workflow automation, AI tools, document processing, and business process optimization.", rate: 45000 },
+      { name: "RAG Platform Development", desc: "Knowledge-base ingestion, vector search, chat interface, and AI retrieval workflows.", rate: 85000 },
+      { name: "Chatbot / AI Assistant", desc: "Website or internal AI assistant with scripted flows, tools, and integrations.", rate: 35000 },
+      { name: "Dashboard Development", desc: "Business dashboards, reporting panels, charts, filters, and data visualization.", rate: 40000 },
+      { name: "API & Third-party Integrations", desc: "Payment, CRM, ERP, WhatsApp, email, analytics, or custom API integrations.", rate: 25000 },
+      { name: "Website Design & Development", desc: "Modern business website, landing pages, forms, SEO basics, and launch setup.", rate: 30000 },
+      { name: "UI/UX Design", desc: "Wireframes, product flows, interface design, and clickable prototypes.", rate: 25000 },
+      { name: "Cloud / DevOps Setup", desc: "Hosting, CI/CD, server setup, monitoring, backups, and deployment pipelines.", rate: 30000 },
+      { name: "Maintenance & Support", desc: "Monthly support, bug fixes, monitoring, backups, and minor enhancements.", rate: 15000 },
+      { name: "Technical Consultation", desc: "Product planning, technical architecture, discovery, and advisory sessions.", rate: 5000 },
+      { name: "Custom Service", desc: "Custom software service as mutually agreed.", rate: 0 }
+    ];
+
+    const defaults = {
+      invoiceNo: "CUB-INV-2026-001",
+      status: "Unpaid",
+      invoiceDate: new Date().toISOString().slice(0, 10),
+      dueDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+      gstMode: "split",
+      gstRate: 18,
+      clientName: "Client Company Name",
+      clientAddress: "Client billing address",
+      clientGstin: "",
+      placeSupply: "Delhi",
+      discount: 0,
+      advance: 0,
+      accountHolder: "Cubitors",
+      bankName: "",
+      accountNumber: "",
+      ifscCode: "",
+      upiId: "",
+      qrDataUrl: "",
+      paymentDetails: "",
+      notes: "Payment due as per agreed terms. Deliverables and timelines are subject to approved scope.",
+      items: [
+        { service: "Web App Development", desc: "Responsive full-stack web application with admin panel, APIs, and deployment.", qty: 1, rate: 65000 }
+      ]
+    };
+
+    let state = JSON.parse(JSON.stringify(defaults));
+    const STORAGE_KEY = "cubitorsBillingDraft";
+    let toastTimer = null;
+    let activePdfFonts = { body: "helvetica", display: "helvetica" };
+
+    const currency = new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 2
+    });
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatDate(value) {
+      if (!value) return "-";
+      const date = new Date(value + "T00:00:00");
+      return date.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+    }
+
+    function money(value) {
+      return currency.format(Number(value || 0));
+    }
+
+    function setPdfFont(doc, family = "body", style = "normal") {
+      doc.setFont(activePdfFonts[family] || "helvetica", style);
+    }
+
+    function showStatus(message, isError = false) {
+      let toast = document.getElementById("appToast");
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "appToast";
+        toast.className = "app-toast";
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.classList.toggle("is-error", isError);
+      toast.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("is-visible");
+      }, 2400);
+    }
+
+    function normalizeDraft(draft) {
+      return {
+        ...JSON.parse(JSON.stringify(defaults)),
+        ...draft,
+        items: Array.isArray(draft.items) && draft.items.length
+          ? draft.items.map((item) => ({
+              service: item.service || "Custom Service",
+              desc: item.desc || "",
+              qty: item.qty || 1,
+              rate: item.rate || 0
+            }))
+          : JSON.parse(JSON.stringify(defaults.items)),
+        qrDataUrl: draft.qrDataUrl || ""
+      };
+    }
+
+    function calculate() {
+      const subtotal = state.items.reduce((sum, item) => sum + Number(item.qty || 0) * Number(item.rate || 0), 0);
+      const discount = Number(state.discount || 0);
+      const taxable = Math.max(subtotal - discount, 0);
+      const rate = state.gstMode === "none" ? 0 : Number(state.gstRate || 0);
+      const tax = taxable * rate / 100;
+      const cgst = state.gstMode === "split" ? tax / 2 : 0;
+      const sgst = state.gstMode === "split" ? tax / 2 : 0;
+      const igst = state.gstMode === "igst" ? tax : 0;
+      const total = taxable + tax;
+      const advance = Number(state.advance || 0);
+      const due = Math.max(total - advance, 0);
+      return { subtotal, discount, taxable, rate, tax, cgst, sgst, igst, total, advance, due };
+    }
+
+    function updateFieldInputs() {
+      document.querySelectorAll("[data-field]").forEach((input) => {
+        const key = input.dataset.field;
+        input.value = state[key] ?? "";
+      });
+    }
+
+    function renderItemsEditor() {
+      const container = document.getElementById("itemsEditor");
+      container.innerHTML = state.items.map((item, index) => `
+        <div class="item-card">
+          <div class="item-row">
+            <div class="field">
+              <label>Service</label>
+              <select data-item="${index}" data-item-field="service">
+                ${services.map((service) => `<option ${service.name === item.service ? "selected" : ""}>${escapeHtml(service.name)}</option>`).join("")}
+              </select>
+            </div>
+            <div class="field">
+              <label>Qty</label>
+              <input type="number" min="0" step="0.01" data-item="${index}" data-item-field="qty" value="${escapeHtml(item.qty)}">
+            </div>
+            <div class="field">
+              <label>Rate</label>
+              <input type="number" min="0" step="0.01" data-item="${index}" data-item-field="rate" value="${escapeHtml(item.rate)}">
+            </div>
+            <button class="remove-item" data-remove="${index}" title="Remove item"><i data-lucide="trash-2"></i></button>
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea data-item="${index}" data-item-field="desc">${escapeHtml(item.desc)}</textarea>
+          </div>
+        </div>
+      `).join("");
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function renderPreview() {
+      const totals = calculate();
+      document.getElementById("previewStatus").textContent = state.status;
+      document.getElementById("previewClientName").textContent = state.clientName || "-";
+      document.getElementById("previewClientAddress").innerHTML = escapeHtml(state.clientAddress).replaceAll("\n", "<br>");
+      document.getElementById("previewClientGstin").textContent = state.clientGstin ? `GSTIN: ${state.clientGstin}` : "";
+      document.getElementById("previewPlaceSupply").textContent = state.placeSupply ? `Place of Supply: ${state.placeSupply}` : "";
+      document.getElementById("previewInvoiceNo").textContent = state.invoiceNo || "-";
+      document.getElementById("previewInvoiceDate").textContent = formatDate(state.invoiceDate);
+      document.getElementById("previewDueDate").textContent = formatDate(state.dueDate);
+      document.getElementById("previewGstMode").textContent = state.gstMode === "split" ? `CGST+SGST ${state.gstRate}%` : state.gstMode === "igst" ? `IGST ${state.gstRate}%` : "No GST";
+
+      document.getElementById("previewItems").innerHTML = state.items.map((item) => {
+        const amount = Number(item.qty || 0) * Number(item.rate || 0);
+        return `
+          <tr>
+            <td><span class="service-name">${escapeHtml(item.service)}</span><span class="service-desc">${escapeHtml(item.desc)}</span></td>
+            <td>${Number(item.qty || 0)}</td>
+            <td>${money(item.rate)}</td>
+            <td>${money(amount)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      const taxRows = state.gstMode === "split"
+        ? `<div class="total-row"><span>CGST (${totals.rate / 2}%)</span><strong>${money(totals.cgst)}</strong></div>
+           <div class="total-row"><span>SGST (${totals.rate / 2}%)</span><strong>${money(totals.sgst)}</strong></div>`
+        : state.gstMode === "igst"
+          ? `<div class="total-row"><span>IGST (${totals.rate}%)</span><strong>${money(totals.igst)}</strong></div>`
+          : "";
+
+      document.getElementById("previewTotals").innerHTML = `
+        <div class="total-row"><span>Subtotal</span><strong>${money(totals.subtotal)}</strong></div>
+        <div class="total-row"><span>Discount</span><strong>${money(totals.discount)}</strong></div>
+        <div class="total-row"><span>Taxable Value</span><strong>${money(totals.taxable)}</strong></div>
+        ${taxRows}
+        <div class="total-row"><span>Advance Paid</span><strong>${money(totals.advance)}</strong></div>
+        <div class="total-row grand-total"><span>Amount Due</span><strong>${money(totals.due)}</strong></div>
+      `;
+
+      document.getElementById("previewNotes").innerHTML = escapeHtml(state.notes).replaceAll("\n", "<br>");
+      const paymentLines = [
+        state.accountHolder ? `Account Holder: ${state.accountHolder}` : "",
+        state.bankName ? `Bank: ${state.bankName}` : "",
+        state.accountNumber ? `A/C No.: ${state.accountNumber}` : "",
+        state.ifscCode ? `IFSC: ${state.ifscCode}` : "",
+        state.upiId ? `UPI: ${state.upiId}` : "",
+        state.paymentDetails || ""
+      ].filter(Boolean).join("\n") || "Payment details will be added here.";
+      document.getElementById("previewPayment").innerHTML = escapeHtml(paymentLines).replaceAll("\n", "<br>");
+      const qr = document.getElementById("previewQr");
+      if (state.qrDataUrl) {
+        qr.src = state.qrDataUrl;
+        qr.hidden = false;
+      } else {
+        qr.removeAttribute("src");
+        qr.hidden = true;
+      }
+      document.getElementById("chipSubtotal").textContent = money(totals.subtotal);
+      document.getElementById("chipTax").textContent = money(totals.tax);
+      document.getElementById("chipDue").textContent = money(totals.due);
+    }
+
+    function render() {
+      updateFieldInputs();
+      renderItemsEditor();
+      renderPreview();
+    }
+
+    function updateAndRender(key, value) {
+      state[key] = value;
+      renderPreview();
+    }
+
+    document.addEventListener("input", (event) => {
+      const field = event.target.dataset.field;
+      if (field) {
+        updateAndRender(field, event.target.value);
+      }
+      const itemIndex = event.target.dataset.item;
+      const itemField = event.target.dataset.itemField;
+      if (itemIndex !== undefined && itemField) {
+        state.items[Number(itemIndex)][itemField] = event.target.value;
+        renderPreview();
+      }
+    });
+
+    document.addEventListener("change", (event) => {
+      const field = event.target.dataset.field;
+      if (field) {
+        updateAndRender(field, event.target.value);
+      }
+      const itemIndex = event.target.dataset.item;
+      const itemField = event.target.dataset.itemField;
+      if (itemIndex !== undefined && itemField) {
+        const index = Number(itemIndex);
+        state.items[index][itemField] = event.target.value;
+        if (itemField === "service") {
+          const selected = services.find((service) => service.name === event.target.value);
+          if (selected) {
+            state.items[index].desc = selected.desc;
+            state.items[index].rate = selected.rate;
+          }
+          renderItemsEditor();
+        }
+        renderPreview();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const removeButton = event.target.closest("[data-remove]");
+      if (removeButton) {
+        const index = Number(removeButton.dataset.remove);
+        state.items.splice(index, 1);
+        if (state.items.length === 0) {
+          state.items.push({ ...services[0], service: services[0].name, qty: 1 });
+        }
+        render();
+      }
+    });
+
+    document.getElementById("addItemBtn").addEventListener("click", () => {
+      const service = services[0];
+      state.items.push({ service: service.name, desc: service.desc, qty: 1, rate: service.rate });
+      render();
+    });
+
+    document.getElementById("qrUpload").addEventListener("change", (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      if (!file.type.startsWith("image/")) {
+        showStatus("QR ke liye image file choose karo.", true);
+        event.target.value = "";
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        state.qrDataUrl = reader.result;
+        renderPreview();
+        showStatus("QR code added.");
+      };
+      reader.onerror = () => showStatus("QR image read nahi ho payi.", true);
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById("clearQrBtn").addEventListener("click", () => {
+      state.qrDataUrl = "";
+      document.getElementById("qrUpload").value = "";
+      renderPreview();
+      showStatus("QR code removed.");
+    });
+
+    function pdfMoney(value) {
+      return `INR ${Number(value || 0).toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })}`;
+    }
+
+    function cleanFilename(value) {
+      return String(value || "Cubitors-Invoice")
+        .replace(/[\\/:*?"<>|]/g, "-")
+        .replace(/\s+/g, "-")
+        .slice(0, 80);
+    }
+
+    function savePdfDocument(pdf, filename) {
+      const blob = pdf.output("blob");
+      const url = URL.createObjectURL(blob);
+      const opened = window.open(url, "_blank");
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(url), opened ? 120000 : 30000);
+      return Boolean(opened);
+    }
+
+    function withTimeout(promise, milliseconds, message) {
+      return Promise.race([
+        promise,
+        new Promise((_, reject) => {
+          setTimeout(() => reject(new Error(message)), milliseconds);
+        })
+      ]);
+    }
+
+    function clearPdfCaptureHosts() {
+      document.querySelectorAll(".pdf-capture-host").forEach((host) => host.remove());
+    }
+
+    function blobToDataUrl(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    function canvasToDataUrl(canvas, type = "image/jpeg", quality = 0.98) {
+      return new Promise((resolve, reject) => {
+        if (canvas.toBlob) {
+          canvas.toBlob((blob) => {
+            if (!blob) {
+              reject(new Error("Canvas export failed"));
+              return;
+            }
+            blobToDataUrl(blob).then(resolve).catch(reject);
+          }, type, quality);
+          return;
+        }
+        try {
+          resolve(canvas.toDataURL(type, quality));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }
+
+    function loadAssetBlob(url) {
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.open("GET", url, true);
+        request.responseType = "blob";
+        request.onload = () => {
+          if (request.status === 200 || request.status === 0) resolve(request.response);
+          else reject(new Error(`Asset load failed: ${url}`));
+        };
+        request.onerror = reject;
+        request.send();
+      });
+    }
+
+    async function loadAssetDataUrl(url) {
+      return blobToDataUrl(await loadAssetBlob(url));
+    }
+
+    function imageInfo(dataUrl) {
+      return new Promise((resolve) => {
+        const image = new Image();
+        image.onload = () => resolve({
+          data: dataUrl,
+          ratio: image.naturalHeight / image.naturalWidth
+        });
+        image.onerror = () => resolve(null);
+        image.src = dataUrl;
+      });
+    }
+
+    async function setupPdfFonts(doc) {
+      try {
+        const outfit = await loadAssetDataUrl("assets/Outfit-wght.ttf");
+        const syne = await loadAssetDataUrl("assets/Syne-wght.ttf");
+        doc.addFileToVFS("Outfit-wght.ttf", outfit.split(",")[1]);
+        doc.addFont("Outfit-wght.ttf", "Outfit", "normal");
+        doc.addFont("Outfit-wght.ttf", "Outfit", "bold");
+        doc.addFileToVFS("Syne-wght.ttf", syne.split(",")[1]);
+        doc.addFont("Syne-wght.ttf", "Syne", "normal");
+        doc.addFont("Syne-wght.ttf", "Syne", "bold");
+        return { body: "Outfit", display: "Syne" };
+      } catch (error) {
+        return { body: "helvetica", display: "helvetica" };
+      }
+    }
+
+    function drawWrapped(doc, text, x, y, width, lineHeight, options = {}) {
+      const {
+        size = 9,
+        style = "normal",
+        color = [7, 17, 31],
+        align = "left"
+      } = options;
+      setPdfFont(doc, "body", style);
+      doc.setFontSize(size);
+      doc.setTextColor(...color);
+      String(text || "-").split("\n").forEach((part) => {
+        const lines = doc.splitTextToSize(part || " ", width);
+        lines.forEach((line) => {
+          doc.text(line, x, y, { align });
+          y += lineHeight;
+        });
+      });
+      return y;
+    }
+
+    function drawInvoiceShell(doc) {
+      doc.setFillColor(7, 17, 31);
+      doc.rect(0, 0, 210, 12, "F");
+      doc.setFillColor(34, 199, 169);
+      doc.triangle(52, 12, 130, 12, 45, 16.5, "F");
+      doc.triangle(130, 12, 45, 16.5, 123, 16.5, "F");
+      doc.setFillColor(77, 185, 255);
+      doc.triangle(110, 12, 210, 12, 103, 16.5, "F");
+      doc.triangle(210, 12, 103, 16.5, 210, 16.5, "F");
+      doc.setFillColor(255, 201, 111);
+      doc.triangle(148, 16.5, 188, 16.5, 143, 20, "F");
+      doc.triangle(188, 16.5, 143, 20, 183, 20, "F");
+
+      doc.setDrawColor(225, 229, 234);
+      doc.line(18, 274, 192, 274);
+      setPdfFont(doc, "body", "bold");
+      doc.setFontSize(8);
+      doc.setTextColor(7, 17, 31);
+      doc.text("Cubitors", 18, 280);
+      doc.text("GSTIN: 07ALZPS0040G1ZV", 192, 280, { align: "right" });
+      setPdfFont(doc, "body", "normal");
+      doc.setFontSize(7.2);
+      doc.setTextColor(102, 115, 129);
+      doc.text("Email: info@cubitors.com | Web: www.cubitors.com", 18, 285);
+      doc.text("Phone: +91 78382 79394, +91 88105 21800", 18, 289);
+      doc.text("Build. Launch. Automate.", 192, 285, { align: "right" });
+
+      doc.setFillColor(7, 17, 31);
+      doc.rect(0, 291, 210, 6, "F");
+      doc.setFillColor(34, 199, 169);
+      doc.triangle(0, 291, 115, 291, 121, 297, "F");
+      doc.triangle(0, 291, 121, 297, 0, 297, "F");
+      doc.setFillColor(77, 185, 255);
+      doc.triangle(0, 291, 72, 291, 78, 297, "F");
+      doc.triangle(0, 291, 78, 297, 0, 297, "F");
+      doc.setFillColor(255, 201, 111);
+      doc.triangle(0, 291, 28, 291, 34, 297, "F");
+      doc.triangle(0, 291, 34, 297, 0, 297, "F");
+    }
+
+    function drawFactBox(doc, x, y, width, label, value) {
+      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(220, 227, 234);
+      doc.rect(x, y, width, 14, "FD");
+      setPdfFont(doc, "body", "bold");
+      doc.setFontSize(6.5);
+      doc.setTextColor(102, 115, 129);
+      doc.text(label.toUpperCase(), x + 2.5, y + 5);
+      doc.setFontSize(8);
+      doc.setTextColor(7, 17, 31);
+      doc.text(String(value || "-"), x + 2.5, y + 10.5);
+    }
+
+    function drawTableHeader(doc, y) {
+      doc.setFillColor(7, 17, 31);
+      doc.rect(18, y, 174, 8, "F");
+      setPdfFont(doc, "body", "bold");
+      doc.setFontSize(6.7);
+      doc.setTextColor(255, 255, 255);
+      doc.text("SERVICE", 20, y + 5.2);
+      doc.text("QTY", 123, y + 5.2, { align: "right" });
+      doc.text("RATE", 154, y + 5.2, { align: "right" });
+      doc.text("AMOUNT", 190, y + 5.2, { align: "right" });
+      return y + 12.5;
+    }
+
+    async function downloadInvoicePdf() {
+      if (!window.jspdf?.jsPDF) {
+        showStatus("PDF library load nahi hui. Internet on karke page refresh karo.", true);
+        return;
+      }
+
+      renderPreview();
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
+      activePdfFonts = await setupPdfFonts(doc);
+      const totals = calculate();
+      let logo = null;
+      try {
+        logo = await imageInfo(await loadAssetDataUrl("../logos/cubitors-logo-04.png"));
+      } catch (error) {
+        logo = null;
+      }
+      const footerStart = 268;
+      let y = 24;
+
+      const addPage = () => {
+        doc.addPage();
+        drawInvoiceShell(doc);
+        y = 24;
+        y = drawTableHeader(doc, y);
+      };
+
+      const ensureSpace = (height) => {
+        if (y + height > footerStart) addPage();
+      };
+
+      drawInvoiceShell(doc);
+      if (logo) {
+        const logoWidth = 54;
+        doc.addImage(logo.data, "PNG", 18, 24, logoWidth, Math.min(logoWidth * logo.ratio, 22));
+      } else {
+        setPdfFont(doc, "body", "bold");
+        doc.setFontSize(18);
+        doc.setTextColor(7, 17, 31);
+        doc.text("Cubitors", 18, 34);
+      }
+
+      setPdfFont(doc, "display", "bold");
+      doc.setFontSize(30);
+      doc.setTextColor(7, 17, 31);
+      doc.text("Invoice", 192, 35, { align: "right" });
+      doc.setFillColor(229, 248, 245);
+      doc.roundedRect(174, 39, 18, 6, 3, 3, "F");
+      doc.setFontSize(6);
+      doc.setTextColor(11, 141, 121);
+      doc.text(String(state.status || "Unpaid").toUpperCase(), 183, 43, { align: "center" });
+
+      doc.setDrawColor(225, 229, 234);
+      doc.line(18, 53, 192, 53);
+      setPdfFont(doc, "body", "bold");
+      doc.setFontSize(6.7);
+      doc.setTextColor(102, 115, 129);
+      doc.text("FROM", 18, 61);
+      doc.text("BILL TO", 112, 61);
+      doc.setFontSize(8.2);
+      doc.setTextColor(7, 17, 31);
+      doc.text("Cubitors", 18, 67);
+      doc.text(state.clientName || "-", 112, 67);
+      setPdfFont(doc, "body", "normal");
+      doc.setFontSize(7.2);
+      doc.setTextColor(43, 53, 68);
+      let leftY = 73;
+      leftY = drawWrapped(doc, "Digital Product Studio", 18, leftY, 78, 4, { size: 7.2, color: [43, 53, 68] });
+      leftY = drawWrapped(doc, "Email: info@cubitors.com\nWeb: www.cubitors.com\nPhone: +91 78382 79394, +91 88105 21800\nGSTIN: 07ALZPS0040G1ZV", 18, leftY, 78, 4, { size: 7.2, color: [43, 53, 68] });
+      let rightY = 73;
+      rightY = drawWrapped(doc, state.clientAddress || "-", 112, rightY, 78, 4, { size: 7.2, color: [43, 53, 68] });
+      if (state.clientGstin) rightY = drawWrapped(doc, `GSTIN: ${state.clientGstin}`, 112, rightY + 1, 78, 4, { size: 7.2, color: [43, 53, 68] });
+      if (state.placeSupply) drawWrapped(doc, `Place of Supply: ${state.placeSupply}`, 112, rightY + 1, 78, 4, { size: 7.2, color: [43, 53, 68] });
+
+      y = Math.max(leftY, rightY) + 6;
+      drawFactBox(doc, 18, y, 43.5, "Invoice No.", state.invoiceNo);
+      drawFactBox(doc, 61.5, y, 43.5, "Invoice Date", formatDate(state.invoiceDate));
+      drawFactBox(doc, 105, y, 43.5, "Due Date", formatDate(state.dueDate));
+      drawFactBox(doc, 148.5, y, 43.5, "GST", state.gstMode === "split" ? `CGST+SGST ${state.gstRate}%` : state.gstMode === "igst" ? `IGST ${state.gstRate}%` : "No GST");
+
+      y += 23;
+      y = drawTableHeader(doc, y);
+      state.items.forEach((item) => {
+        const descLines = doc.splitTextToSize(item.desc || "", 86);
+        const rowHeight = Math.max(12, 7 + descLines.length * 3.7);
+        ensureSpace(rowHeight + 2);
+        setPdfFont(doc, "body", "bold");
+        doc.setFontSize(7.8);
+        doc.setTextColor(7, 17, 31);
+        doc.text(String(item.service || "Custom Service"), 20, y);
+        setPdfFont(doc, "body", "normal");
+        doc.setFontSize(6.8);
+        doc.setTextColor(102, 115, 129);
+        doc.text(descLines, 20, y + 4.5);
+        doc.setFontSize(7.4);
+        doc.setTextColor(7, 17, 31);
+        doc.text(String(Number(item.qty || 0)), 123, y, { align: "right" });
+        doc.text(pdfMoney(item.rate), 154, y, { align: "right" });
+        doc.text(pdfMoney(Number(item.qty || 0) * Number(item.rate || 0)), 190, y, { align: "right" });
+        doc.setDrawColor(225, 229, 234);
+        doc.line(18, y + rowHeight - 2, 192, y + rowHeight - 2);
+        y += rowHeight;
+      });
+
+      const taxRows = state.gstMode === "split"
+        ? [[`CGST (${totals.rate / 2}%)`, totals.cgst], [`SGST (${totals.rate / 2}%)`, totals.sgst]]
+        : state.gstMode === "igst"
+          ? [[`IGST (${totals.rate}%)`, totals.igst]]
+          : [];
+      const totalRows = [
+        ["Subtotal", totals.subtotal],
+        ["Discount", totals.discount],
+        ["Taxable Value", totals.taxable],
+        ...taxRows,
+        ["Advance Paid", totals.advance],
+        ["Amount Due", totals.due, true]
+      ];
+      const paymentLines = [
+        state.accountHolder ? `Account Holder: ${state.accountHolder}` : "",
+        state.bankName ? `Bank: ${state.bankName}` : "",
+        state.accountNumber ? `A/C No.: ${state.accountNumber}` : "",
+        state.ifscCode ? `IFSC: ${state.ifscCode}` : "",
+        state.upiId ? `UPI: ${state.upiId}` : "",
+        state.paymentDetails || ""
+      ].filter(Boolean).join("\n") || "Payment details will be added here.";
+
+      ensureSpace(92);
+      y += 5;
+      setPdfFont(doc, "body", "bold");
+      doc.setFontSize(8);
+      doc.setTextColor(7, 17, 31);
+      doc.text("Notes", 18, y);
+      const notesBottom = drawWrapped(doc, state.notes || "-", 18, y + 5, 78, 4, { size: 7, color: [102, 115, 129] });
+
+      let paymentY = notesBottom + 8;
+      setPdfFont(doc, "body", "bold");
+      doc.setFontSize(8);
+      doc.setTextColor(7, 17, 31);
+      doc.text("Payment Details", 18, paymentY);
+      const paymentBottom = drawWrapped(doc, paymentLines, 18, paymentY + 5, state.qrDataUrl ? 50 : 78, 4, { size: 7, color: [43, 53, 68] });
+      let leftColumnBottom = paymentBottom;
+      if (state.qrDataUrl) {
+        try {
+          doc.addImage(state.qrDataUrl, "PNG", 74, paymentY + 2, 22, 22);
+          leftColumnBottom = Math.max(leftColumnBottom, paymentY + 26);
+        } catch (error) {
+          try {
+            doc.addImage(state.qrDataUrl, "JPEG", 74, paymentY + 2, 22, 22);
+            leftColumnBottom = Math.max(leftColumnBottom, paymentY + 26);
+          } catch (_) {
+            doc.setFontSize(6.5);
+            doc.setTextColor(102, 115, 129);
+            doc.text("QR image could not be embedded", 18, paymentBottom + 2);
+            leftColumnBottom = paymentBottom + 6;
+          }
+        }
+      }
+
+      let totalY = y - 2;
+      totalRows.forEach(([label, value, grand]) => {
+        if (grand) {
+          doc.setFillColor(7, 17, 31);
+          doc.rect(122, totalY, 70, 9, "F");
+          doc.setTextColor(255, 255, 255);
+          setPdfFont(doc, "body", "bold");
+        } else {
+          doc.setFillColor(255, 255, 255);
+          doc.setDrawColor(220, 227, 234);
+          doc.rect(122, totalY, 70, 8, "FD");
+          doc.setTextColor(43, 53, 68);
+          setPdfFont(doc, "body", "normal");
+        }
+        doc.setFontSize(grand ? 8.8 : 7.3);
+        doc.text(label, 125, totalY + (grand ? 5.8 : 5.2));
+        doc.text(pdfMoney(value), 189, totalY + (grand ? 5.8 : 5.2), { align: "right" });
+        totalY += grand ? 9 : 8;
+      });
+      y = Math.max(leftColumnBottom, totalY) + 8;
+      setPdfFont(doc, "body", "normal");
+      doc.setFontSize(7.5);
+      doc.setTextColor(102, 115, 129);
+      doc.text("This is a computer generated invoice for software and digital services.", 105, y + 5, { align: "center" });
+
+      savePdfDocument(doc, `${cleanFilename(state.invoiceNo)}.pdf`);
+      showStatus("Complete PDF download ho gaya.");
+    }
+
+    async function waitForImages(root) {
+      const images = Array.from(root.querySelectorAll("img"));
+      await Promise.all(images.map((image) => {
+        if (image.complete && image.naturalWidth > 0) return Promise.resolve();
+        return new Promise((resolve) => {
+          image.addEventListener("load", resolve, { once: true });
+          image.addEventListener("error", resolve, { once: true });
+        });
+      }));
+    }
+
+    async function downloadExactPreviewPdf() {
+      if (!window.jspdf?.jsPDF || !window.html2canvas) {
+        showStatus("PDF tools load nahi hue. Ctrl+F5 refresh karke dobara try karo.", true);
+        return;
+      }
+
+      const button = document.getElementById("printBtn");
+      let host = null;
+      clearPdfCaptureHosts();
+      button.disabled = true;
+      showStatus("PDF ban raha hai...");
+
+      try {
+        render();
+        if (document.fonts?.ready) await document.fonts.ready;
+
+        const source = document.getElementById("invoicePage");
+        host = document.createElement("div");
+        host.className = "pdf-capture-host";
+        host.style.position = "fixed";
+        host.style.left = "-10000px";
+        host.style.top = "0";
+        host.style.width = "210mm";
+        host.style.background = "#ffffff";
+        host.style.zIndex = "-1";
+        host.style.overflow = "visible";
+
+        const clone = source.cloneNode(true);
+        clone.style.transform = "none";
+        clone.style.transformOrigin = "top left";
+        clone.style.margin = "0";
+        clone.style.width = "210mm";
+        clone.style.minHeight = "297mm";
+        clone.style.height = "auto";
+        clone.style.overflow = "visible";
+        clone.style.boxShadow = "none";
+        host.appendChild(clone);
+        document.body.appendChild(host);
+
+        await waitForImages(clone);
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        const canvas = await withTimeout(html2canvas(clone, {
+          backgroundColor: "#ffffff",
+          scale: 2,
+          useCORS: true,
+          allowTaint: false,
+          logging: false,
+          scrollX: 0,
+          scrollY: 0,
+          windowWidth: clone.scrollWidth,
+          windowHeight: Math.max(clone.scrollHeight, clone.offsetHeight)
+        }), 15000, "PDF capture timeout");
+        document.body.removeChild(host);
+        host = null;
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+        const pageWidth = 210;
+        const pageHeight = 297;
+        const pageCanvasHeight = Math.floor(canvas.width * pageHeight / pageWidth);
+        let sourceY = 0;
+        let pageIndex = 0;
+
+        while (sourceY < canvas.height) {
+          const sliceHeight = Math.min(pageCanvasHeight, canvas.height - sourceY);
+          const pageCanvas = document.createElement("canvas");
+          pageCanvas.width = canvas.width;
+          pageCanvas.height = sliceHeight;
+          const context = pageCanvas.getContext("2d");
+          context.fillStyle = "#ffffff";
+          context.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+          context.drawImage(
+            canvas,
+            0,
+            sourceY,
+            canvas.width,
+            sliceHeight,
+            0,
+            0,
+            canvas.width,
+            sliceHeight
+          );
+
+          if (pageIndex > 0) pdf.addPage();
+          const imgHeight = sliceHeight * pageWidth / canvas.width;
+          const pageImage = await canvasToDataUrl(pageCanvas, "image/jpeg", 0.98);
+          pdf.addImage(pageImage, "JPEG", 0, 0, pageWidth, imgHeight);
+          sourceY += sliceHeight;
+          pageIndex += 1;
+        }
+
+        savePdfDocument(pdf, `${cleanFilename(state.invoiceNo)}.pdf`);
+        showStatus("PDF download ho gaya. Ye exact invoice preview se bana hai.");
+      } catch (error) {
+        if (host?.parentNode) host.parentNode.removeChild(host);
+        clearPdfCaptureHosts();
+        console.error("Cubitors PDF generation failed:", error);
+        showStatus(`Exact PDF fail hua, fallback PDF ban raha hai: ${error.message || "unknown error"}`, true);
+        try {
+          await downloadInvoicePdf();
+        } catch (fallbackError) {
+          console.error("Cubitors fallback PDF failed:", fallbackError);
+          showStatus("PDF fallback bhi fail hua. Page reload karke try karo.", true);
+        }
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    document.getElementById("printBtn").addEventListener("click", () => {
+      downloadInvoicePdf();
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        showStatus("Draft saved. Load button se ye invoice wapas aa jayega.");
+      } catch (error) {
+        showStatus("Draft save nahi ho paya. Browser storage allow nahi kar raha.", true);
+      }
+    });
+    
+    document.getElementById("loadBtn").addEventListener("click", () => {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) {
+          showStatus("Koi saved draft nahi mila. Pehle Save dabao.", true);
+          return;
+        }
+        state = normalizeDraft(JSON.parse(saved));
+        render();
+        showStatus("Saved draft loaded.");
+      } catch (error) {
+        showStatus("Saved draft load nahi ho paya. Draft corrupt ho sakta hai.", true);
+      }
+    });
+    
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      state = JSON.parse(JSON.stringify(defaults));
+      document.getElementById("qrUpload").value = "";
+      render();
+    });
+
+    render();
+    clearPdfCaptureHosts();
+    document.getElementById("printBtn").disabled = false;
+    if (window.lucide) lucide.createIcons();
+  </script>
+</body>
+</html>
