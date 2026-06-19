@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing | Cubitors</title>
+  <meta
+    name="description"
+    content="Starting prices for Cubitors websites, mobile apps, AI automation, SaaS dashboards, custom software, branding, UI UX design, and consulting."
+  >
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Cubitors">
+  <meta name="theme-color" content="#07111f">
+  <link rel="canonical" href="https://cubitors.com/pricing/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cubitors.com/pricing/">
+  <meta property="og:title" content="Pricing | Cubitors">
+  <meta property="og:description" content="Starting prices for Cubitors digital product, AI, automation, SaaS, app, website, design, and consulting work.">
+  <meta property="og:image" content="https://cubitors.com/branding/logos/cubitors-logo-04.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #07111f;
+      --ink-soft: #344253;
+      --muted: #667381;
+      --line: rgba(7, 17, 31, 0.12);
+      --panel: #ffffff;
+      --page: #f7faf9;
+      --green: #18b889;
+      --blue: #4db9ff;
+      --gold: #ffc96f;
+      --shadow: 0 24px 70px rgba(7, 17, 31, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(24, 184, 137, 0.08), transparent 34%),
+        linear-gradient(225deg, rgba(77, 185, 255, 0.10), transparent 38%),
+        var(--page);
+      font-family: "Outfit", Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(247, 250, 249, 0.86);
+      border-bottom: 1px solid rgba(7, 17, 31, 0.08);
+    }
+
+    .topbar-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .brand img {
+      width: 148px;
+      display: block;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .nav a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.56);
+      border: 1px solid rgba(7, 17, 31, 0.08);
+    }
+
+    .hero {
+      padding: 72px 0 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--ink-soft);
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(7, 17, 31, 0.08);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Syne", "Outfit", Arial, sans-serif;
+      letter-spacing: -0.045em;
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 22px 0 16px;
+      font-size: clamp(2.6rem, 6.4vw, 5.4rem);
+      line-height: 0.98;
+    }
+
+    .lead {
+      max-width: 760px;
+      color: var(--ink-soft);
+      font-size: 1.16rem;
+      line-height: 1.78;
+      margin: 0;
+    }
+
+    .updated {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .updated span {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(7, 17, 31, 0.08);
+    }
+
+    .pricing-layout {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      gap: 24px;
+      align-items: start;
+      padding: 28px 0 72px;
+    }
+
+    .side-note,
+    .pricing-card,
+    .fine-print {
+      background:
+        linear-gradient(90deg, rgba(77, 185, 255, 0.45), rgba(24, 184, 137, 0.45) 62%, rgba(255, 201, 111, 0.45)) top / 100% 3px no-repeat,
+        rgba(255, 255, 255, 0.84);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .side-note {
+      position: sticky;
+      top: 102px;
+      padding: 24px;
+    }
+
+    .side-note h2,
+    .pricing-card h2,
+    .fine-print h2 {
+      margin: 0 0 12px;
+      font-size: 1.55rem;
+      line-height: 1.08;
+    }
+
+    .side-note p,
+    .fine-print p {
+      margin: 0 0 14px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .side-note ul,
+    .fine-print ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--ink-soft);
+      line-height: 1.72;
+    }
+
+    .pricing-card {
+      overflow: hidden;
+    }
+
+    .pricing-head {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      padding: 24px 26px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .pricing-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .price-table th,
+    .price-table td {
+      padding: 18px 26px;
+      text-align: left;
+      border-bottom: 1px solid rgba(7, 17, 31, 0.09);
+      vertical-align: top;
+    }
+
+    .price-table th {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(247, 250, 249, 0.72);
+    }
+
+    .price-table td:first-child {
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .price-table td:nth-child(2) {
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .price {
+      display: inline-flex;
+      white-space: nowrap;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .fine-print {
+      margin-top: 24px;
+      padding: 24px 26px;
+    }
+
+    .fine-print .muted {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      border: 1px solid rgba(7, 17, 31, 0.08);
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      color: var(--ink);
+    }
+
+    .button-ghost {
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--ink-soft);
+    }
+
+    footer {
+      padding: 34px 0 50px;
+      color: var(--muted);
+      border-top: 1px solid rgba(7, 17, 31, 0.08);
+      background: rgba(255, 255, 255, 0.54);
+    }
+
+    footer a {
+      color: var(--ink-soft);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    @media (max-width: 860px) {
+      .topbar-inner,
+      .pricing-head {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        padding: 14px 0;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .pricing-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side-note {
+        position: static;
+      }
+
+      .price-table,
+      .price-table tbody,
+      .price-table tr,
+      .price-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .price-table thead {
+        display: none;
+      }
+
+      .price-table tr {
+        border-bottom: 1px solid rgba(7, 17, 31, 0.09);
+      }
+
+      .price-table td {
+        border-bottom: 0;
+        padding: 12px 20px;
+      }
+
+      .price-table td:first-child {
+        padding-top: 20px;
+      }
+
+      .price-table td:last-child {
+        padding-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/">
+        <img src="/branding/logos/cubitors-logo-04.png" alt="Cubitors">
+      </a>
+      <nav class="nav" aria-label="Pricing navigation">
+        <a href="/">Home</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/policies/">Policies</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <span class="eyebrow">Starting prices</span>
+        <h1>Basic pricing for websites, apps, SaaS, AI, automation, and design work.</h1>
+        <p class="lead">
+          These are starting estimates for clearly defined basic scopes. Final pricing depends on requirements,
+          timeline, integrations, content, data migration, support needs, and the written proposal.
+        </p>
+        <div class="updated">
+          <span>Last updated: 19 June 2026</span>
+          <span>Prices are starting points</span>
+          <span>GST and third-party costs may apply</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell pricing-layout">
+      <aside class="side-note">
+        <h2>Basic scope rule</h2>
+        <p>
+          Basic pricing covers limited, well-defined work. Larger scopes, urgent delivery, complex integrations,
+          advanced dashboards, AI usage, compliance, and ongoing support are quoted separately.
+        </p>
+        <ul>
+          <li>Final amount is confirmed in writing before work starts.</li>
+          <li>Paid tools, APIs, SMS, email, maps, hosting, server, and domain charges are separate.</li>
+          <li>Maintenance, changes after approval, and new features are separate unless included in the proposal.</li>
+        </ul>
+      </aside>
+
+      <div>
+        <article class="pricing-card">
+          <div class="pricing-head">
+            <div>
+              <h2>Service Pricing</h2>
+              <p>For clients who need an initial budget before a detailed proposal.</p>
+            </div>
+            <p>
+              All amounts are in INR and shown as starting prices. These prices do not include server, domain,
+              cloud, software subscriptions, taxes, or third-party platform fees.
+            </p>
+          </div>
+
+          <table class="price-table">
+            <thead>
+              <tr>
+                <th>Activity</th>
+                <th>Basic Scope</th>
+                <th>Starting Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Website / Landing Page</td>
+                <td>Single focused page with responsive design, core sections, contact action, and basic SEO setup.</td>
+                <td><span class="price">Rs. 18,999 onwards</span></td>
+              </tr>
+              <tr>
+                <td>Business Website</td>
+                <td>Basic 5-7 page website for company profile, services, contact, SEO structure, and mobile layout.</td>
+                <td><span class="price">Rs. 31,999 onwards</span></td>
+              </tr>
+              <tr>
+                <td>Logo / Basic Branding</td>
+                <td>Basic brand direction with logo concept, color suggestion, and export files for digital use.</td>
+                <td><span class="price">Rs. 9,999 onwards</span></td>
+              </tr>
+              <tr>
+                <td>UI/UX Design</td>
+                <td>Basic screen or page design set for a defined flow, with clean layout and handoff-ready visuals.</td>
+                <td><span class="price">Rs. 12,999 onwards</span></td>
+              </tr>
+              <tr>
+                <td>Automation Setup</td>
+                <td>Simple workflow automation for forms, notifications, sheets, CRM steps, or internal operations.</td>
+                <td><span class="price">Rs. 24,999 onwards</span></td>
+              </tr>
+              <tr>
+                <td>AI Chatbot / AI Workflow</td>
+                <td>Basic AI assistant or workflow connected to a defined knowledge source or business process.</td>
+                <td><span class="price">Rs. 37,999 onwards</span></td>
+              </tr>
+              <tr>
+                <td>SaaS Setup / Dashboard</td>
+                <td>Basic admin dashboard, user flow, data screens, authentication, and essential backend setup.</td>
+                <td><span class="price">Rs. 62,999 onwards</span></td>
+              </tr>
+              <tr>
+                <td>Custom Software MVP</td>
+                <td>Small MVP with defined modules, database, admin controls, and deployment-ready implementation.</td>
+                <td><span class="price">Rs. 94,999 onwards</span></td>
+              </tr>
+              <tr>
+                <td>Mobile App Basic</td>
+                <td>Basic Android or cross-platform app with limited screens, API connection, and standard app flow.</td>
+                <td><span class="price">Rs. 1,24,999 onwards</span></td>
+              </tr>
+              <tr>
+                <td>Consulting / Strategy Call</td>
+                <td>Project planning, architecture direction, AI/software feasibility, or product roadmap session.</td>
+                <td><span class="price">Rs. 3,999 onwards</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="fine-print">
+          <h2>Infrastructure and outside costs</h2>
+          <p>
+            Server, hosting, cloud, domain, SSL, email, paid APIs, maps, SMS, payment gateway, Play Store,
+            App Store, plugin, theme, third-party SaaS, and similar charges are not included in the basic prices.
+          </p>
+          <p class="muted">
+            If Cubitors purchases or manages any outside service on behalf of a client, that cost may be billed
+            separately with applicable taxes, gateway charges, currency conversion, and administrative handling.
+          </p>
+          <div class="cta-row">
+            <a class="button button-primary" href="mailto:info@cubitors.com">Request a quote</a>
+            <a class="button button-ghost" href="/policies/">View policies</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      Cubitors | info@cubitors.com | +91-7838279394 |
+      <a href="/pricing/">Pricing</a> |
+      <a href="/policies/">Privacy, Terms & AI Policy</a>
+    </div>
+  </footer>
+</body>
+</html>
