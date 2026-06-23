@@ -788,6 +788,7 @@
 
     .service-card {
       position: relative;
+      display: block;
       padding: 28px;
       border-radius: var(--radius-lg);
       border: 1px solid rgba(7, 17, 31, 0.08);
@@ -797,6 +798,17 @@
         linear-gradient(180deg, rgba(255, 254, 247, 0.94), rgba(248, 253, 250, 0.74));
       box-shadow: var(--shadow-tight);
       overflow: hidden;
+      color: inherit;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .service-card:hover,
+    .service-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(24, 184, 137, 0.26);
+      box-shadow: 0 28px 68px rgba(7, 17, 31, 0.13);
+      outline: none;
     }
 
     .service-card::after {
@@ -2044,7 +2056,7 @@
         </div>
 
         <div class="services-grid">
-          <article class="service-card" data-reveal>
+          <a class="service-card" href="/premium-website-development/" data-reveal>
             <span class="service-index">01 / Premium Website Builds</span>
             <h3>Marketing websites that feel expensive and convert like sales teams.</h3>
             <p>
@@ -2056,9 +2068,9 @@
               <span>Responsive design</span>
               <span>Conversion flows</span>
             </div>
-          </article>
+          </a>
 
-          <article class="service-card" data-reveal>
+          <a class="service-card" href="/full-stack-app-development/" data-reveal>
             <span class="service-index">02 / Full-Stack App Development</span>
             <h3>Business platforms with auth, roles, backend logic, admin tools, and clean workflows.</h3>
             <p>
@@ -2070,9 +2082,9 @@
               <span>APIs + database</span>
               <span>Admin dashboards</span>
             </div>
-          </article>
+          </a>
 
-          <article class="service-card" data-reveal>
+          <a class="service-card" href="/ai-solutions/" data-reveal>
             <span class="service-index">03 / AI Solutions</span>
             <h3>AI built into real work, not bolted on as a gimmick.</h3>
             <p>
@@ -2086,9 +2098,9 @@
               <span>Voice AI</span>
               <span>AI copilots</span>
             </div>
-          </article>
+          </a>
 
-          <article class="service-card" data-reveal>
+          <a class="service-card" href="/mobile-app-development/" data-reveal>
             <span class="service-index">04 / App Development</span>
             <h3>Mobile apps that extend your business into every pocket.</h3>
             <p>
@@ -2100,9 +2112,9 @@
               <span>iOS-ready</span>
               <span>Real-time sync</span>
             </div>
-          </article>
+          </a>
 
-          <article class="service-card" data-reveal>
+          <a class="service-card" href="/biometrics-integrations/" data-reveal>
             <span class="service-index">05 / Biometrics & Integrations</span>
             <h3>Connect hardware, attendance devices, identity systems, and third-party tools into one flow.</h3>
             <p>
@@ -2114,9 +2126,9 @@
               <span>API integrations</span>
               <span>Operational sync</span>
             </div>
-          </article>
+          </a>
 
-          <article class="service-card" data-reveal>
+          <a class="service-card" href="/analytics-automation/" data-reveal>
             <span class="service-index">06 / Analytics & Automation</span>
             <h3>Dashboards and workflows that give owners control without manual chasing.</h3>
             <p>
@@ -2128,7 +2140,7 @@
               <span>Workflow automation</span>
               <span>Owner dashboards</span>
             </div>
-          </article>
+          </a>
         </div>
       </div>
     </section>
@@ -2359,7 +2371,7 @@
               <span>Document AI</span>
               <span>Workflow triggers</span>
             </div>
-          </article>
+          </a>
 
           <article class="proof-card" data-reveal>
             <span class="label">Workflow automation</span>
@@ -2488,20 +2500,20 @@
         <div>
           <span class="footer-column-title">Capabilities</span>
           <div class="footer-badges">
-            <span>Premium Websites</span>
+            <a href="/premium-website-development/">Premium Websites</a>
             <a href="/full-stack-app-development/">Full-Stack Apps</a>
             <a href="/full-stack-app-development/">Web Apps</a>
-            <span>Admin Dashboards</span>
+            <a href="/full-stack-app-development/">Admin Dashboards</a>
             <a href="/ai-solutions/">Agentic AI</a>
             <a href="/ai-solutions/">AI Copilots</a>
-            <span>GenAI Support</span>
+            <a href="/ai-solutions/">GenAI Support</a>
             <a href="/rag-platform-development/">RAG Platforms</a>
-            <span>Automation Engines</span>
+            <a href="/analytics-automation/">Automation Engines</a>
             <a href="/mobile-app-development/">Mobile Apps</a>
-            <span>API Integrations</span>
-            <span>Analytics Systems</span>
-            <span>Biometric Sync</span>
-            <span>Workflow Systems</span>
+            <a href="/biometrics-integrations/">API Integrations</a>
+            <a href="/analytics-automation/">Analytics Systems</a>
+            <a href="/biometrics-integrations/">Biometric Sync</a>
+            <a href="/analytics-automation/">Workflow Systems</a>
             <a href="/pricing/">Pricing</a>
             <a href="/policies/">Policies</a>
           </div>
