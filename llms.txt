@@ -1,0 +1,32 @@
+# Cubitors
+
+> Cubitors is an IT consulting and development business based in New Delhi, India, serving international businesses. Services include software, websites, mobile apps, data engineering, automation, integrations, AI systems and ongoing technical support.
+
+Cubitors works on new builds and existing systems through consulting and discovery, scoped project delivery and ongoing support. Scope, deliverables, acceptance criteria, timelines, fees, quotation currency and third-party costs are agreed in the project proposal; pricing is tailored to the work.
+
+The experience pages describe anonymised professional and independent project contributions of the people behind Cubitors. They should not be interpreted as a list of Cubitors client commissions. System diagrams are illustrative.
+
+## Company and contact
+
+- [Home](https://www.cubitors.com/): Company overview, capabilities and delivery approach.
+- [Contact](https://www.cubitors.com/#contact): Discuss a project, existing system or technical problem. Email: aditya@cubitors.com. Include the business goal, current setup, timeline, country and time zone; omit passwords and sensitive business data.
+- [Experience](https://www.cubitors.com/work/): Anonymised experience in business software, data workflows, technical QA, mobile systems and integrations.
+- [Engagements and pricing](https://www.cubitors.com/pricing/): Consulting, project delivery and ongoing support, with proposal-based commercial terms.
+
+## Services
+
+- [IT consulting and strategy](https://www.cubitors.com/it-consulting/): Technology reviews, architecture, troubleshooting and practical roadmaps.
+- [Custom software development](https://www.cubitors.com/full-stack-app-development/): Business applications, internal tools, customer portals, APIs and connected backend systems.
+- [Website development](https://www.cubitors.com/premium-website-development/): Business websites and web experiences.
+- [Mobile app development](https://www.cubitors.com/mobile-app-development/): Connected mobile applications and backend workflows.
+- [Data engineering and analytics](https://www.cubitors.com/data-engineering/): Data pipelines, transformations, validation and reporting automation.
+- [Workflow automation and API integrations](https://www.cubitors.com/analytics-automation/): Connect business tools and automate workflows with validation and exception handling.
+- [AI solutions](https://www.cubitors.com/ai-solutions/): Applied AI, document processing, assistants and integration into business workflows.
+- [RAG platform development](https://www.cubitors.com/rag-platform-development/): Retrieval-augmented knowledge search and assistants using approved information sources.
+- [Attendance and system integrations](https://www.cubitors.com/biometrics-integrations/): Attendance, identity, device and business application integrations.
+
+## Optional
+
+- [Software project planning guide](https://www.cubitors.com/software-project-planning/): How to scope a website, app, automation or AI project, including acceptance criteria and handover.
+- [Privacy and terms](https://www.cubitors.com/policies/): Website policies and engagement terms.
+- [Sitemap](https://www.cubitors.com/sitemap.xml): Index of website pages.
